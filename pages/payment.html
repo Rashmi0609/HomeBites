@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Bites - Payment</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/payment.css" />
+</head>
+
+<body>
+  <div class="container">
+    <!--  Branding -->
+    <section class="login-card brand-section">
+      <div class="brand">
+        <div class="logo-circle">H</div>
+        <div class="brand-text">Home Bites</div>
+        <div class="tagline">City Moms, Cooking with Love</div>
+      </div>
+    </section>
+
+    <!-- 🛒 Cart -->
+    <section class="login-card cart-block">
+      <h2 class="section-title">🛒 Your Cart</h2>
+      <ul class="cart-items">
+        <li class="cart-item">
+          <div class="item-top">
+            <span class="item-name">Chole Bhature Kit</span>
+            <span class="item-price">₹<span id="item-price">299</span></span>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn" id="decrease">-</button>
+            <span id="qty-value" class="qty-value">1</span>
+            <button class="qty-btn" id="increase">+</button>
+          </div>
+        </li>
+      </ul>
+      <div class="cart-total">
+        <strong>Total:</strong> <span id="total-price">299</span>
+      </div>
+    </section>
+
+    <!-- 💳 Payment -->
+    <section class="login-card payment-section">
+      <h2 class="section-title">💳 Select Payment Method</h2>
+      <form id="payment-form" aria-label="Payment method selection form">
+        <div class="social-buttons payment-options" role="list">
+          <div class="social-btn payment-option" data-method="phonepay">
+            <span class="material-icons payment-icon">phone_iphone</span>
+            <span class="payment-label">PhonePe</span>
+          </div>
+          <div class="social-btn payment-option" data-method="gpay">
+            <span class="material-icons payment-icon">account_balance_wallet</span>
+            <span class="payment-label">Google Pay (GPay)</span>
+          </div>
+          <div class="social-btn payment-option" data-method="cod">
+            <span class="material-icons payment-icon">local_shipping</span>
+            <span class="payment-label">Cash on Delivery</span>
+          </div>
+        </div>
+        <button type="submit" disabled aria-disabled="true">Confirm Payment Method</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="../js/payment.js"></script>
+  </script>
+</body>
+
+</html>

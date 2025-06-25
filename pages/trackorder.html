@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Order - HomeBites</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../css/trackorder.css" />
+</head>
+<body>
+  <div class="track-card">
+    <div class="header">
+      <div class="logo">H</div>
+      <h2 class="brand-name">Home Bites</h2>
+      <p class="tagline">City Moms, Cooking with Love</p>
+    </div>
+
+    <h3>Track Your Order</h3>
+    <input type="text" placeholder="Enter your Order ID (e.g., 12)" />
+    <button>Track Order</button>
+
+    <div class="status">
+      <strong>Order ID:</strong>
+      <strong>Status:</strong>
+
+      <div class="status-row">
+        <div class="status-label">
+          <i class="material-icons">inventory_2</i>
+          <span>Received</span>
+        </div>
+        <span class="status-box done"></span>
+      </div>
+
+      <div class="status-row">
+        <div class="status-label">
+          <i class="material-icons">autorenew</i>
+          <span>Processing</span>
+        </div>
+        <span class="status-box done"></span>
+      </div>
+
+      <div class="status-row">
+        <div class="status-label">
+          <i class="material-icons">local_shipping</i>
+          <span>Shipped</span>
+        </div>
+        <span class="status-box done"></span>
+      </div>
+
+      <div class="status-row">
+        <div class="status-label">
+          <i class="material-icons">home</i>
+          <span>Delivered</span>
+        </div>
+        <span class="status-box"></span>
+      </div>
+
+      <strong>Delivery Boy Name:</strong>
+      <!-- <p class="info-line">--</p> -->
+
+      <strong>Contact No:</strong>
+      <!-- <p class="info-line">--</p> -->
+    </div>
+  </div>
+</body>
+</html>

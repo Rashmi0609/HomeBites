@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Bites - Sign Up</title>
+  <link rel="stylesheet" href="../css/register.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="page" class="container fade-in">
+    <div class="signup-card">
+      <div class="brand">
+        <div class="logo-circle">H</div>
+        <div class="brand-text">Home Bites</div>
+        <div class="tagline">Create your account to enjoy Ghar ka khana ❤</div>
+      </div>
+
+      <h2 class="welcome-title">Sign Up</h2>
+
+      <form id="signup-form" class="signup-form" novalidate>
+        <div class="input-group">
+          <input type="text" name="firstName" id="firstName" required placeholder=" ">
+          <label for="firstName">First Name</label>
+        </div>
+        <div class="input-group">
+          <input type="text" name="lastName" id="lastName" required placeholder=" ">
+          <label for="lastName">Last Name</label>
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" id="email" required placeholder=" ">
+          <label for="email">Email Address</label>
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" id="password" required placeholder=" ">
+          <label for="password">Password</label>
+        </div>
+        <div class="input-group">
+          <input type="text" name="address" id="address" required placeholder=" ">
+          <label for="address">Address</label>
+        </div>
+        <div class="input-group">
+          <input type="tel" name="phone" id="phone" required placeholder=" ">
+          <label for="phone">Contact Number</label>
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+      </form>
+
+      <div class="signup-link">
+        Already have an account? <a href="#" id="loginLink">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/register.js"></script>
+</body>
+</html>

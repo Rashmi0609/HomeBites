@@ -1,0 +1,223 @@
+:root {
+  --primary: #fff0e6;           /* Light warm background for header/footer */
+  --secondary: #ff6347;         /* Button color - Tomato red (unchanged, it's perfect) */
+  --background: white;      /* Slightly warmer light coral background */
+  --text-dark: #2e1f0f;         /* Deeper brown for bold readability */
+  --text-light: #8b5e3c;        /* Warm muted brown for subtext */
+  --card-bg: #ffe2cc;           /* Softer peach card background */
+  --highlight: #ff4500;         /* Highlight borders, accents - Orange Red (keep) */
+  --shadow: rgba(255, 87, 51, 0.1); /* Warm shadow, matching tomato tone */
+  --dark-orange: #e53900;       /* Darker Swiggy-style orange for icons */
+  --star-yellow: #ffd700;       /* For ratings (keep) */
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+body.fade-out {
+  opacity: 0;
+}
+
+header {
+  background: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color:  #ff6739 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: white;
+  margin-right: 10px;
+  font-family: 'Pacifico', cursive; 
+}
+
+
+/* .logo span {
+  font-size: 1rem;
+  font-weight: 400;
+} */
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.nav-buttons button {
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-buttons button:hover {
+  background: #cc654a;
+  transform: translateY(-2px);
+}
+
+.nav-buttons button:active {
+  transform: scale(0.97);
+}
+
+.hero {
+  background: url('https://www.pixelstalk.net/wp-content/uploads/2016/08/Photos-Food-Images-Download.jpg' ) center/cover no-repeat;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero h1,
+.hero p {
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+.hero img {
+  filter: brightness(1.3);
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.para {
+  font-style: italic;
+  margin-top: 20px;
+  /* color: var(--text-light); */
+}
+
+.section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: var(--text-dark);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px var(--shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-dark);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 16px 12px 6px;
+}
+
+.card p {
+  padding: 0 12px 16px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+footer {
+  background: var(--primary);
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+/* Animation */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+.logo-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8rem;
+  color: #1e90ff; 
+}
+
+

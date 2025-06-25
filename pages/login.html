@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomeBites Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+  <div id="page" class="container fade-in">
+    <div class="login-card">
+      <div class="brand">
+        <div class="logo-circle">H</div>
+        <div class="brand-text">Home Bites</div>
+        <div class="tagline">City Moms, Cooking with Love</div>
+      </div>
+
+      <h2 class="welcome-title">Welcome Back</h2>
+
+      <form id="login-form" class="login-form">
+        <div class="input-group">
+          <input type="email" required placeholder=" " id="email" />
+          <label for="email">Email</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" required placeholder=" " id="password" />
+          <label for="password">Password</label>
+        </div>
+
+        <div class="forgot-pass">
+          <a href="#" id="forgot-password-link">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Log In</button>
+
+        <div class="divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-buttons">
+          <button type="button" class="social-btn">
+            <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google"> Google
+          </button>
+          <button type="button" class="social-btn">
+            <img src="https://img.icons8.com/fluency/24/facebook-new.png" alt="Facebook"> Facebook
+          </button>
+          <button type="button" class="social-btn">
+            <img src="https://img.icons8.com/ios-filled/24/mac-os.png" alt="Apple"> Apple
+          </button>
+        </div>
+
+        <div class="signup-link">
+          Don’t have an account? <a href="#" id="create-account-link">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/login.js"></script>
+</body>
+</html>
