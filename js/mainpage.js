@@ -3,7 +3,7 @@
     document.body.classList.add('fade-out');
     setTimeout(() => {
       window.location.href = url;
-    }, 500); // Wait for fade-out animation
+    }, 500); 
   }
 
   document.addEventListener("DOMContentLoaded", () => {

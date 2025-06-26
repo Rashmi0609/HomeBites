@@ -19,7 +19,7 @@
 
     body, html {
         font-family: 'Inter', sans-serif;
-        background-color: #FFFAF7; /* Updated background color */
+        background-color: #FFFAF7; 
         height: 100%;
         display: flex;
         justify-content: center;
@@ -181,8 +181,8 @@
 .qty-btn {
   background-color: #eee;
   border: none;
-  padding: 10px 16px;         /* Bigger padding */
-  font-size: 1.2rem;          /* Larger font */
+  padding: 10px 16px;         
+  font-size: 1.2rem;          
   cursor: pointer;
   border-radius: 8px;
   font-weight: bold;

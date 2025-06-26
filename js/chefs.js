@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const chefCards = document.querySelectorAll(".profile-card");
 
-  // Fade-in when page loads
+
   document.body.classList.add("fade-in");
 
   chefCards.forEach(card => {
@@ -9,22 +9,52 @@ document.addEventListener("DOMContentLoaded", () => {
       const chefName = card.querySelector(".profile-name").textContent.trim();
       const encodedName = encodeURIComponent(chefName);
 
-      // Trigger fade-out animation
+
       document.body.classList.remove("fade-in");
       document.body.classList.add("fade-out");
 
-      // Navigate after animation completes
+
       setTimeout(() => {
         window.location.href = `cart.html?chef=${encodedName}`;
-      }, 400); // Match your CSS transition duration
+      }, 400);
     });
   });
 
-  // Prevent default <a> behavior inside the card
+
   const links = document.querySelectorAll(".profile-card .profile-name");
   links.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-    });
+    link.addEventListener("click", e => e.preventDefault());
+  });
+
+
+  const locationBtn = document.getElementById("useLocationBtn");
+  const pincodeBtn = document.getElementById("showPincodeBtn");
+  const pincodeSection = document.getElementById("pincodeSection");
+  const pincodeInput = document.getElementById("pincodeInput");
+  const submitBtn = document.getElementById("submitPincode");
+
+
+  locationBtn.addEventListener("click", () => {
+    window.open("https://www.google.com/maps", "_blank");
+  });
+
+
+  pincodeBtn.addEventListener("click", () => {
+    pincodeSection.style.display = "block";
+    pincodeInput.focus();
+  });
+
+
+  submitBtn.addEventListener("click", () => {
+    const pincode = pincodeInput.value.trim();
+    if (pincode === "") {
+      alert("Please enter a pincode.");
+    } else if (!/^\d{6}$/.test(pincode)) {
+      alert("Please enter a valid 6-digit Indian pincode.");
+    } else {
+      alert("Your pincode " + pincode + " has been submitted!");
+
+    }
   });
 });
+

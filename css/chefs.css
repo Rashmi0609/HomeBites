@@ -51,6 +51,7 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
+
 .change-address {
     position: absolute;
     top: 20px;
@@ -68,11 +69,7 @@ h1 {
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.change-address:hover {
-    color: white;
-    background: var(--primary);
-    transform: translateY(-2px);
-}
+
 
 .profile-card {
     display: grid;
@@ -198,4 +195,57 @@ body.fade-in {
 body.fade-out {
   opacity: 0;
 }
+.location-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.location-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+}
+
+.location-controls button {
+  padding: 8px 14px;
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#pincodeSection {
+  display: none;
+  margin-top: 5px;
+}
+
+#pincodeInput {
+  padding: 6px;
+  width: 150px;
+  margin-bottom: 6px;
+}
+
+#submitPincode {
+  padding: 6px 12px;
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 

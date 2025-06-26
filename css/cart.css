@@ -18,10 +18,10 @@ body.fade-out {
     transform: scale(1.01);
 }
 
-/* Responsive video embed */
+
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 ratio */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     border-radius: var(--radius);
@@ -36,7 +36,7 @@ body.fade-out {
     height: 100%;
 }
 
-/* Recipe card styling */
+
 .recipe-card {
     background-color: var(--white);
     border-radius: var(--radius);
@@ -50,7 +50,7 @@ body.fade-out {
                 0 10px 10px -5px var(--light-shadow);
 }
 
-/* Compact content box */
+
 .compact-box {
     background-color: var(--white);
     border-radius: var(--radius);
@@ -63,7 +63,7 @@ body.fade-out {
     box-shadow: 0 8px 20px var(--medium-shadow);
 }
 
-/* Small button styling */
+
 .small-button {
     padding: 8px 16px;
     font-size: 0.875rem;

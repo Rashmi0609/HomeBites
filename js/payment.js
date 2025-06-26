@@ -1,4 +1,4 @@
-// 🛒 CART LOGIC
+
 const decreaseBtn = document.getElementById("decrease");
 const increaseBtn = document.getElementById("increase");
 const qtyValue = document.getElementById("qty-value");
@@ -24,9 +24,9 @@ increaseBtn.addEventListener("click", () => {
   updateCart();
 });
 
-updateCart(); // Initial call
+updateCart();
 
-// 💳 PAYMENT LOGIC
+// 
 const options = document.querySelectorAll('.payment-option');
 const confirmBtn = document.querySelector('button[type="submit"]');
 let selectedMethod = null;
@@ -54,7 +54,7 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
 
   alert(`✅ You have selected: ${methodText[selectedMethod]}\nThank you for choosing Home Bites!`);
 
-  // Optional: Fade before redirect
+
   document.querySelector('.container').classList.add('fade-out');
 
   setTimeout(() => {

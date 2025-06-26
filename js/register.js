@@ -1,6 +1,6 @@
 const container = document.getElementById('page');
 
-// Handle signup form submit
+
 document.getElementById("signup-form").addEventListener("submit", function (e) {
   e.preventDefault();
   alert("Signup successful! Redirecting to login...");
@@ -10,7 +10,7 @@ document.getElementById("signup-form").addEventListener("submit", function (e) {
   }, 400);
 });
 
-// Handle both login triggers
+
 document.getElementById('loginLink').addEventListener('click', function (e) {
   e.preventDefault();
   container.classList.add('fade-out');

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCartBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
                 addToCartBtn.classList.add('bg-orange-500', 'hover:bg-orange-600');
 
-                // ✅ Redirect to dish.html after animation
+                
                 document.body.classList.add('fade-out');
                 setTimeout(() => {
                     window.location.href = 'dish.html';
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             audio.play();
             document.body.classList.add('fade-out');
             setTimeout(() => {
-                window.location.href = 'payment.html'; // ✅ Go to payment page
+                window.location.href = 'payment.html'; // Go to payment page
             }, 400);
         });
     }

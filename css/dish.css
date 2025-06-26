@@ -8,63 +8,63 @@
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background: #FFFAF7; /* Soft peach background */
-            color: #333333; /* Dark text */
+            background: #FFFAF7; 
+            color: #333333; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             padding: 24px;
-            opacity: 1; /* Set to 1 for visibility */
+            opacity: 1; 
             transition: opacity 0.5s ease;
         }
 
         header {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center items horizontally */
+            align-items: center; 
         }
 
         header h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #FF5722; /* Deep orange title */
+            color: #FF5722; 
             margin: 0;
         }
 
         header p {
             font-size: 1.1rem;
-            color: #E23744; /* Coral subheading */
+            color: #E23744;
             margin-top: 8px;
         }
 
         .search-container {
-            width: 100%; /* Make the search container full width */
-            max-width: 1100px; /* Match the max width of the food grid */
+            width: 100%;
+            max-width: 1100px; 
             display: flex;
             align-items: center;
             margin-top: 16px;
-            justify-content: center; /* Center the search container */
+            justify-content: center; 
         }
 
         .search-icon {
-            margin-right: 8px; /* Space between icon and input */
-            color: #FF5722; /* Icon color */
-            font-size: 1.5rem; /* Icon size */
+            margin-right: 8px; 
+            color: #FF5722; 
+            font-size: 1.5rem; 
         }
 
         #searchInput {
-            width: 100%; /* Full width of the search container */
-            padding: 12px; /* Increased padding for a more comfortable input */
+            width: 100%; 
+            padding: 12px; 
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 1.1rem; /* Slightly larger font size */
+            font-size: 1.1rem; 
         }
 
         main {
             flex: 1;
             max-width: 1100px;
             margin: 0 auto;
-            background: #FFEDE4; /* Light warm card background */
+            background: #FFEDE4; 
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             padding: 32px;
@@ -77,9 +77,9 @@
         }
 
         .food-card {
-            background: #FFFFFF; /* Change box color to white */
+            background: #FFFFFF;
             border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(255, 127, 80, 0.2); /* Coral shadow */
+            box-shadow: 0 6px 20px rgba(255, 127, 80, 0.2); 
             cursor: pointer;
             overflow: hidden;
             display: flex;
@@ -90,18 +90,18 @@
 
         .food-card:hover,
         .food-card:focus-visible {
-            box-shadow: 0 10px 28px rgba(255, 99, 71, 0.4); /* Tomato glow */
+            box-shadow: 0 10px 28px rgba(255, 99, 71, 0.4);
             transform: translateY(-6px);
             outline: none;
         }
 
         .food-card.selected {
-            border-color: #FF5722; /* Deep orange border */
+            border-color: #FF5722; 
             box-shadow: 0 0 20px 3px rgba(255, 87, 34, 0.5);
         }
 
         .food-card:focus-visible {
-            outline: 3px solid #FC8019; /* Warm orange */
+            outline: 3px solid #FC8019; 
             outline-offset: 4px;
         }
 
@@ -160,7 +160,7 @@
 
         .brand-title {
             font-family: 'Pacifico', cursive;
-            color: #FF7F50; /* Coral color */
+            color: #FF7F50;
             font-size: 2.8rem;
             margin: 0;
             text-align: center;

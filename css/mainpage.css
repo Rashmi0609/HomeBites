@@ -1,17 +1,15 @@
 :root {
-  --primary: #fff0e6;           /* Light warm background for header/footer */
-  --secondary: #ff6347;         /* Button color - Tomato red (unchanged, it's perfect) */
-  --background: white;      /* Slightly warmer light coral background */
-  --text-dark: #2e1f0f;         /* Deeper brown for bold readability */
-  --text-light: #8b5e3c;        /* Warm muted brown for subtext */
-  --card-bg: #ffe2cc;           /* Softer peach card background */
-  --highlight: #ff4500;         /* Highlight borders, accents - Orange Red (keep) */
-  --shadow: rgba(255, 87, 51, 0.1); /* Warm shadow, matching tomato tone */
-  --dark-orange: #e53900;       /* Darker Swiggy-style orange for icons */
-  --star-yellow: #ffd700;       /* For ratings (keep) */
+  --primary: #fff0e6;
+  --secondary: #ff6347;
+  --background: white;
+  --text-dark: #2e1f0f;
+  --text-light: #8b5e3c;
+  --card-bg: #ffe2cc;
+  --highlight: #ff4500;
+  --shadow: rgba(255, 87, 51, 0.1);
+  --dark-orange: #e53900;
+  --star-yellow: #ffd700;
 }
-
-
 
 * {
   margin: 0;
@@ -54,21 +52,15 @@ header {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color:  #ff6739 ;
+  background-color: #ff6739;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
   color: white;
   margin-right: 10px;
-  font-family: 'Pacifico', cursive; 
+  font-family: 'Pacifico', cursive;
 }
-
-
-/* .logo span {
-  font-size: 1rem;
-  font-weight: 400;
-} */
 
 nav a {
   margin-left: 20px;
@@ -99,7 +91,7 @@ nav a {
 }
 
 .hero {
-  background: url('https://www.pixelstalk.net/wp-content/uploads/2016/08/Photos-Food-Images-Download.jpg' ) center/cover no-repeat;
+  background: url('https://www.pixelstalk.net/wp-content/uploads/2016/08/Photos-Food-Images-Download.jpg') center/cover no-repeat;
   height: 70vh;
   display: flex;
   flex-direction: column;
@@ -143,7 +135,6 @@ nav a {
 .para {
   font-style: italic;
   margin-top: 20px;
-  /* color: var(--text-light); */
 }
 
 .section {
@@ -202,7 +193,6 @@ footer {
   color: var(--text-dark);
 }
 
-/* Animation */
 @keyframes fadeOut {
   to {
     opacity: 0;
@@ -217,7 +207,8 @@ footer {
 .logo-text {
   font-family: 'Pacifico', cursive;
   font-size: 1.8rem;
-  color: #1e90ff; 
+  color: #1e90ff;
 }
+
 
 
