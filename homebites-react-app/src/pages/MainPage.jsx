@@ -1,11 +1,12 @@
 import React from "react";
 import "./../styles/mainpage.css";
-
+import { Link } from "react-router-dom";
 
 function MainPage() {
   return (
     <>
       <header>
+      
         <div className="logo">
           <div className="circle">H</div>
           <span className="logo-text">HomeBites</span>
@@ -16,10 +17,10 @@ function MainPage() {
           <a href="#dishes">Dishes</a>
           <a href="#contact">Contact</a>
           <span className="nav-buttons">
-            {/* Login and Register Buttons */}
-            <button onClick={() => window.location.href = "login.html"}>Login</button>
-            <button onClick={() => window.location.href = "register.html"}>Register</button>
+            <Link to="/login"><button>Login</button></Link>
+            <Link to="/register"><button>Register</button></Link>
           </span>
+
         </nav>
       </header>
 

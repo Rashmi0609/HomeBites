@@ -1,0 +1,256 @@
+:root {
+  --primary-color: #ff7f50;
+  --secondary-color: #ff6347;
+  --text-color: #333333;
+  --light-gray: #f4f4f4;
+  --input-bg: #ffffff;
+  --border-color: #ccc;
+  --tagline-color: #888888;
+}
+
+
+#page {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#page.fade-in {
+  opacity: 1;
+}
+
+#page.fade-out {
+  opacity: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Inter', sans-serif;
+  background: #FFFAF7; 
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+ 
+
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.brand {
+  margin-bottom: 16px;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 8px;
+}
+
+.brand-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--tagline-color);
+  margin-top: 4px;
+}
+
+.welcome-title {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  position: relative;
+}
+.input-group {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  font-size: 1rem;
+}
+
+
+.input-group input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--input-bg);
+  font-size: 0.95rem;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: #fff;
+  color: #999;
+  transition: 0.2s ease;
+  padding: 0 4px;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: var(--primary-color);
+}
+
+.forgot-pass {
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.forgot-pass a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 16px 0;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: border 0.3s;
+  .social-btn {
+  color: var(--text-color);
+}
+
+}
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-color);
+}
+
+.social-btn img {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+}
+
+
+.social-btn:hover {
+  border-color: var(--primary-color);
+}
+
+.signup-link {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.signup-link a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}

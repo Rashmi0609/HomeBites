@@ -12,6 +12,7 @@
   --shadow: rgba(255, 87, 51, 0.1);
   --dark-orange: #e53900;
   --star-yellow: #ffd700;
+  
 }
 
 * {
@@ -105,6 +106,7 @@ nav a {
   text-align: center;
   color: #fff;
   position: relative;
+  
 }
 
 .hero::before {
@@ -143,12 +145,9 @@ nav a {
 }
 
 .section {
-  width: 100vw;
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: auto;
+  width: 100%;
+  padding: 60px 0;
   background: white;
-  
 }
 
 .section h2 {
@@ -161,9 +160,11 @@ nav a {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  
+  width: 100%;
+  padding: 0 40px; /* Adds breathing space left & right */
+  box-sizing: border-box;
 }
 
 .card {
