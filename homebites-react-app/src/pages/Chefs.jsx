@@ -1,6 +1,7 @@
 import React from 'react';
-import '../styles/Chefs.css'; // Updated CSS file
+import '../styles/Chefs.css';
 import { useNavigate } from 'react-router-dom';
+
 const chefs = [
   {
     name: 'Ramya Sharma',
@@ -33,6 +34,12 @@ const chefs = [
 ];
 
 const ChefsPage = () => {
+  const navigate = useNavigate();
+
+  const handleBookNow = () => {
+    navigate('/cart');
+  };
+
   return (
     <div className="chefs-container">
       <div className="location-buttons">
@@ -52,6 +59,10 @@ const ChefsPage = () => {
               <span className="rating">⭐ {chef.rating}</span>
             </div>
             <p className="price">Price: ₹{chef.price}</p>
+
+            <button className="book-now-btn" onClick={handleBookNow}>
+              Book Now
+            </button>
           </div>
         </div>
       ))}
@@ -60,3 +71,4 @@ const ChefsPage = () => {
 };
 
 export default ChefsPage;
+

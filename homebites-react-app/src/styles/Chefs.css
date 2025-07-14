@@ -122,4 +122,20 @@ html, body {
   font-size: 1rem;
   color: #333;
 }
+.book-now-btn {
+  margin-top: 10px;
+  background-color: #fb7454;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-now-btn:hover {
+  background-color: #c77749;
+}
+
 

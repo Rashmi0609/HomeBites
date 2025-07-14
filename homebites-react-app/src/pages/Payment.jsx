@@ -10,13 +10,16 @@ const Payment = () => {
   const handleSelectMethod = (method) => {
     setSelectedMethod(method);
   };
+  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (selectedMethod) {
-      alert(`Payment method: ${selectedMethod}`);
-    }
-  };
+  e.preventDefault();
+  if (selectedMethod) {
+    alert(`Payment method: ${selectedMethod}`);
+    navigate('/Trackorder'); 
+  }
+};
+
 
   return (
     <div className="payment-wrapper">
