@@ -40,11 +40,30 @@ const ChefsPage = () => {
     navigate('/cart');
   };
 
+  const handleCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          window.open(googleMapsUrl, '_blank');
+        },
+        (error) => {
+          alert('Failed to get your location. Please enable location access.');
+          console.error(error);
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser.');
+    }
+  };
+
   return (
     <div className="chefs-container">
       <div className="location-buttons">
-        <button className="location-btn">Current Location</button>
-        <button className="location-btn">Enter Pincode</button>
+        <button className="location-btn" onClick={handleCurrentLocation}>
+          Current Location
+        </button>
       </div>
       <h1 className="chefs-title">HomeBites Chefs</h1>
 
@@ -59,7 +78,6 @@ const ChefsPage = () => {
               <span className="rating">⭐ {chef.rating}</span>
             </div>
             <p className="price">Price: ₹{chef.price}</p>
-
             <button className="book-now-btn" onClick={handleBookNow}>
               Book Now
             </button>
@@ -69,6 +87,7 @@ const ChefsPage = () => {
     </div>
   );
 };
+
 
 export default ChefsPage;
 

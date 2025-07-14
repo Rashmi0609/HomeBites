@@ -1,6 +1,6 @@
 import '../styles/Login.css';
 import { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false); 
@@ -71,7 +71,7 @@ function Login() {
             </div>
 
             <div className="signup-link">
-              Don’t have an account? <a href="#" id="create-account-link">Sign Up</a>
+              Don’t have an account? <Link to="/register" id="create-account-link">Sign Up</Link>
             </div>
           </form>
         </div>
@@ -81,3 +81,4 @@ function Login() {
 }
 
 export default Login;
+

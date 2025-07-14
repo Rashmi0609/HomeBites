@@ -1,6 +1,6 @@
-import '../styles/Register.css'; // make sure this matches your folder structure
+import '../styles/Register.css'; // Make sure this path is correct
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -12,6 +12,8 @@ function Register() {
     phone: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -19,8 +21,12 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // You can add validation here if needed
     console.log('Form submitted:', formData);
-    // TODO: Add form validation and API call
+    
+    alert('Registration successful! Please login to continue.');
+    navigate('/login');
   };
 
   return (
@@ -112,7 +118,7 @@ function Register() {
           </form>
 
           <div className="signup-link">
-            Already have an account? <a href="/login">Login</a>
+            Already have an account? <Link to="/login">Login</Link>
           </div>
         </div>
       </div>
