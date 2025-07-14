@@ -1,5 +1,6 @@
 import '../styles/Dish.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const dishes = [
   {
@@ -46,6 +47,11 @@ const dishes = [
 
 function Dish() {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleDishClick = (dishName) => {
+    navigate('/chefs');
+  };
 
   const filteredDishes = dishes.filter(dish =>
     dish.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -54,20 +60,20 @@ function Dish() {
   return (
     <div style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
       <header className="header-center">
-  <h1 className="brand-title">HomeBites</h1>
-  <p className="hi">Select which homemade food you want to enjoy today</p>
-  <div className="search-container">
-  <span class="material-icons search-icon"></span>
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search your dish..."
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      aria-label="Search for dishes"
-    />
-  </div>
-</header>
+        <h1 className="brand-title">HomeBites</h1>
+        <p className="hi">Select which homemade food you want to enjoy today</p>
+        <div className="search-container">
+          <span className="material-icons search-icon"></span>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search your dish..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Search for dishes"
+          />
+        </div>
+      </header>
 
       <main>
         <section className="food-grid" role="list" aria-label="Homemade food selection">
@@ -79,6 +85,8 @@ function Dish() {
                 className="food-card"
                 role="listitem"
                 aria-label={`Select homemade ${dish.name}`}
+                onClick={() => handleDishClick(dish.name)}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="food-image-container">
                   <img src={dish.image} alt={dish.alt} loading="lazy" />

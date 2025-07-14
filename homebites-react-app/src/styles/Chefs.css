@@ -1,0 +1,125 @@
+body {
+  background-color: #fff8f5;
+  font-family: 'Arial', sans-serif;
+}
+
+/* .chefs-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 126, 91, 0.1);
+} */
+ .chefs-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 126, 91, 0.1);
+  min-height: 100%; /* ✨ Add this */
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff8f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+.chefs-title {
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  color: #ff7f50;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.location-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.location-btn {
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease-in-out;
+}
+
+.location-btn:hover {
+  background-color: #ff6347;
+}
+
+.chef-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ff7f50;
+}
+
+.chef-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ff7f50;
+  object-fit: cover;
+  margin-right: 25px;
+  box-shadow: 0 0 10px rgba(255, 99, 71, 0.3);
+}
+
+.chef-details {
+  flex: 1;
+}
+
+.chef-details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #000000;
+}
+
+.specialty {
+  color: #FF4500;
+  font-weight: 600;
+  margin: 4px 0 8px;
+}
+
+.cert-rating {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 6px;
+}
+
+.badge {
+  background-color: #ffa500;
+  padding: 5px 10px;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 2px 2px 6px rgba(255, 126, 91, 0.3);
+}
+
+.rating {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
