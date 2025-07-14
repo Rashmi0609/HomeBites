@@ -7,7 +7,7 @@ import Dish from './pages/Dish';
 import Payment from './pages/Payment';
 import TrackOrder from './pages/Trackorder';
 import Chefs from './pages/Chefs'; 
-import Cart from './pages/Cart';
+// import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/trackorder" element={<TrackOrder />} />
         <Route path="/chefs" element={<Chefs />} /> 
-        <Route path="/cart" element={<Cart />} /> 
+        {/* <Route path="/cart" element={<Cart />} />  */}
       </Routes>
     </Router>
   );
