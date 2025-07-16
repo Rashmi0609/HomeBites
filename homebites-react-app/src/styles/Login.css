@@ -7,6 +7,21 @@
   --border-color: #ccc;
   --tagline-color: #888888;
 }
+.login-page .container,
+.login-page .login-card,
+.login-page .login-form,
+.login-page .input-group input,
+.login-page .input-group label,
+.login-page .brand,
+.login-page .signup-link,
+.login-page .divider,
+.login-page .social-buttons,
+.login-page .forgot-pass,
+.login-page h2,
+.login-page p,
+.login-page a {
+  color: #000000;
+}
 
 
 #page {

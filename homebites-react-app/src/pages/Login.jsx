@@ -20,7 +20,7 @@ function Login() {
   };
 
   return (
-    <div style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
+    <div className="login-page" style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
       <div id="page" className="container fade-in">
         <div className="login-card">
           <div className="brand">

@@ -70,6 +70,8 @@
   margin-bottom: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #ffffff;
+  color: #000000; 
 }
 
 .trackorder-button {
