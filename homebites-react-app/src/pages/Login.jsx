@@ -59,9 +59,14 @@ function Login() {
             </div>
 
             <div className="social-buttons">
-              <button type="button" className="social-btn">
-                <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google
+              <button
+               type="button"
+              className="social-btn"
+              onClick={() => window.open("http://localhost:5000/auth/google", "_self")}
+              >
+              <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google
               </button>
+
               <button type="button" className="social-btn">
                 <img src="https://img.icons8.com/fluency/24/facebook-new.png" alt="Facebook" /> Facebook
               </button>
