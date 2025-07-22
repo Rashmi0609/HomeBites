@@ -16,7 +16,7 @@
 
 body, html {
   font-family: 'Inter', sans-serif;
-  background: #FFFAF7; 
+  background: #FFFAF7;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -144,6 +144,7 @@ body, html {
   font-weight: 600;
   text-decoration: none;
 }
+
 /* Page Fade Animation */
 #page {
   opacity: 0;
@@ -158,3 +159,145 @@ body, html {
   opacity: 0;
 }
 
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
+@media (max-width: 768px) {
+  .signup-card {
+    padding: 25px; /* Reduce padding */
+    border-radius: 15px; /* Slightly smaller border-radius */
+  }
+
+  .brand-text {
+    font-size: 1.4rem; /* Slightly smaller brand text */
+  }
+
+  .welcome-title {
+    font-size: 1.1rem; /* Slightly smaller welcome title */
+    margin: 15px 0;
+  }
+
+  .input-group input {
+    padding: 12px 10px; /* Adjust input padding */
+    font-size: 0.9rem; /* Slightly smaller input font */
+  }
+
+  .input-group label {
+    font-size: 0.85rem; /* Adjust label font size */
+  }
+
+  .input-group input:focus + label,
+  .input-group input:not(:placeholder-shown) + label {
+    top: -7px; /* Adjust label position */
+    font-size: 0.7rem;
+  }
+
+  .signup-btn {
+    padding: 12px; /* Adjust button padding */
+    font-size: 0.95rem; /* Slightly smaller button font */
+  }
+
+  .signup-link {
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+}
+
+/* For screens smaller than 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px; /* Further reduce container padding */
+  }
+
+  .signup-card {
+    padding: 20px; /* Further reduce signup card padding */
+    border-radius: 10px; /* Smaller border-radius */
+  }
+
+  .brand-text {
+    font-size: 1.3rem; /* Even smaller brand text */
+  }
+
+  .logo-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+  }
+
+  .welcome-title {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+
+  .signup-form {
+    gap: 12px; /* Reduce gap in form */
+  }
+
+  .input-group input {
+    padding: 10px 8px; /* Further reduce input padding */
+    font-size: 0.85rem;
+  }
+
+  .input-group label {
+    font-size: 0.8rem;
+    left: 10px; /* Adjust label position */
+  }
+
+  .input-group input:focus + label,
+  .input-group input:not(:placeholder-shown) + label {
+    top: -6px; /* Further adjust label position */
+    font-size: 0.65rem;
+  }
+
+  .signup-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .signup-link {
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* For screens smaller than 320px (e.g., very small mobile devices) */
+@media (max-width: 320px) {
+  .container {
+    padding: 10px;
+  }
+
+  .signup-card {
+    padding: 15px;
+  }
+
+  .brand-text {
+    font-size: 1.2rem;
+  }
+
+  .logo-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .welcome-title {
+    font-size: 0.9rem;
+  }
+
+  .input-group input {
+    font-size: 0.8rem;
+  }
+
+  .input-group label {
+    font-size: 0.75rem;
+  }
+
+  .signup-btn {
+    font-size: 0.85rem;
+  }
+}
