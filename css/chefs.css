@@ -164,25 +164,7 @@ h1 {
     fill: currentColor;
 }
 
-@media (max-width: 600px) {
-    main {
-        padding: 24px;
-    }
-
-    .profile-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 16px;
-    }
-
-    .profile-photo {
-        margin: 0 auto;
-    }
-
-    .badge-rating-row {
-        justify-content: center;
-    }
-}
+/* Page transition effect */
 body {
   opacity: 1;
   transition: opacity 0.4s ease;
@@ -195,18 +177,6 @@ body.fade-in {
 body.fade-out {
   opacity: 0;
 }
-.location-controls {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  text-align: right;
-}
-
-.button-row {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
 
 .location-controls {
   position: absolute;
@@ -216,6 +186,13 @@ body.fade-out {
   flex-direction: column;
   gap: 10px;
   text-align: right;
+  z-index: 10; /* Ensure it's above other content if needed */
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .location-controls button {
@@ -226,26 +203,209 @@ body.fade-out {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.location-controls button:hover {
+    background-color: #e56b3e;
+    transform: translateY(-2px);
 }
 
 #pincodeSection {
   display: none;
   margin-top: 5px;
+  background-color: var(--card-bg);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow);
 }
 
 #pincodeInput {
-  padding: 6px;
+  padding: 8px;
   width: 150px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  border: 1px solid var(--muted-text);
+  border-radius: 4px;
 }
 
 #submitPincode {
-  padding: 6px 12px;
-  background-color: #ff7f50;
+  padding: 8px 14px;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#submitPincode:hover {
+    background-color: var(--accent);
+    transform: translateY(-1px);
 }
 
 
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px; /* Adjust body padding */
+    }
+
+    main {
+        padding: 25px 30px; /* Adjust main content padding */
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 2.2rem; /* Smaller heading size */
+        margin-bottom: 30px;
+    }
+
+    .change-address, .location-controls {
+        position: static; /* Make it flow with content */
+        margin-top: 20px;
+        text-align: center;
+        width: auto; /* Remove fixed width */
+        flex-direction: row; /* Buttons in a row */
+        justify-content: center;
+    }
+
+    .change-address button, .location-controls button {
+        margin: 5px; /* Adjust button margins */
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    #pincodeSection {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    #pincodeInput {
+        width: 120px; /* Smaller input width */
+        padding: 7px;
+    }
+
+    .profile-card {
+        grid-template-columns: 100px 1fr; /* Adjust grid for profile card */
+        gap: 20px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+    }
+
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.6rem; /* Smaller profile name font */
+    }
+
+    .profile-location,
+    .profile-specialty {
+        font-size: 1rem; /* Smaller location/specialty font */
+    }
+
+    .badge-rating-row {
+        flex-direction: column; /* Stack badge and ratings */
+        align-items: center;
+        gap: 10px;
+    }
+
+    .hygiene-badge {
+        font-size: 0.85rem;
+        padding: 5px 12px;
+    }
+
+    .ratings {
+        font-size: 0.9rem;
+    }
+}
+
+/* For screens smaller than 600px (already present, refining) */
+@media (max-width: 600px) {
+    main {
+        padding: 24px; /* Original padding for <600px */
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 25px;
+    }
+
+    .change-address, .location-controls {
+        flex-direction: column; /* Stack buttons again on very small screens */
+        align-items: center;
+        gap: 8px;
+    }
+
+    .profile-card {
+        grid-template-columns: 1fr; /* Stack profile photo and info */
+        text-align: center;
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+
+    .profile-photo {
+        margin: 0 auto; /* Center profile photo */
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+    }
+
+    .profile-location,
+    .profile-specialty {
+        font-size: 0.95rem;
+    }
+
+    .badge-rating-row {
+        justify-content: center; /* Center badge and ratings */
+    }
+
+    #pincodeInput {
+        width: 100%; /* Full width input */
+        max-width: 180px; /* Limit max width */
+    }
+}
+
+/* For screens smaller than 400px (very small mobile devices) */
+@media (max-width: 400px) {
+    html, body {
+        padding: 10px; /* Even less padding */
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .profile-name {
+        font-size: 1.3rem;
+    }
+
+    .profile-location,
+    .profile-specialty {
+        font-size: 0.9rem;
+    }
+
+    .hygiene-badge {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+
+    .ratings {
+        font-size: 0.85rem;
+    }
+}

@@ -1,167 +1,319 @@
- /* Reset and base */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
+/* Reset and base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #FFFAF7; 
-            color: #333333; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            opacity: 1; 
-            transition: opacity 0.5s ease;
-        }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #FFFAF7;
+    color: #333333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
 
-        header {
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-        }
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px; /* Added padding for spacing */
+}
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #FF5722; 
-            margin: 0;
-        }
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FF5722;
+    margin: 0;
+}
 
-        header p {
-            font-size: 1.1rem;
-            color: #E23744;
-            margin-top: 8px;
-        }
+header p {
+    font-size: 1.1rem;
+    color: #E23744;
+    margin-top: 8px;
+}
 
-        .search-container {
-            width: 100%;
-            max-width: 1100px; 
-            display: flex;
-            align-items: center;
-            margin-top: 16px;
-            justify-content: center; 
-        }
+.search-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    justify-content: center;
+    padding: 0 15px; /* Added horizontal padding for smaller screens */
+}
 
-        .search-icon {
-            margin-right: 8px; 
-            color: #FF5722; 
-            font-size: 1.5rem; 
-        }
+.search-icon {
+    margin-right: 8px;
+    color: #FF5722;
+    font-size: 1.5rem;
+}
 
-        #searchInput {
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1.1rem; 
-        }
+#searchInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.1rem;
+}
 
-        main {
-            flex: 1;
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #FFEDE4; 
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            padding: 32px;
-        }
+main {
+    flex: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #FFEDE4;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+}
 
-        .food-grid {
-            display: grid;
-            gap: 32px;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
+.food-grid {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
 
-        .food-card {
-            background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(255, 127, 80, 0.2); 
-            cursor: pointer;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.3s ease, transform 0.2s ease;
-            border: 3px solid transparent;
-        }
+.food-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(255, 127, 80, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    border: 3px solid transparent;
+}
 
-        .food-card:hover,
-        .food-card:focus-visible {
-            box-shadow: 0 10px 28px rgba(255, 99, 71, 0.4);
-            transform: translateY(-6px);
-            outline: none;
-        }
+.food-card:hover,
+.food-card:focus-visible {
+    box-shadow: 0 10px 28px rgba(255, 99, 71, 0.4);
+    transform: translateY(-6px);
+    outline: none;
+}
 
-        .food-card.selected {
-            border-color: #FF5722; 
-            box-shadow: 0 0 20px 3px rgba(255, 87, 34, 0.5);
-        }
+.food-card.selected {
+    border-color: #FF5722;
+    box-shadow: 0 0 20px 3px rgba(255, 87, 34, 0.5);
+}
 
-        .food-card:focus-visible {
-            outline: 3px solid #FC8019; 
-            outline-offset: 4px;
-        }
+.food-card:focus-visible {
+    outline: 3px solid #FC8019;
+    outline-offset: 4px;
+}
 
-        .food-image-container {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            border-radius: 16px 16px 0 0;
-            background: linear-gradient(135deg, #FF7F50, #FFA500);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.food-image-container {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(135deg, #FF7F50, #FFA500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .food-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
+.food-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
 
-        .food-card:hover .food-image-container img,
-        .food-card.selected .food-image-container img {
-            transform: scale(1.05);
-        }
+.food-card:hover .food-image-container img,
+.food-card.selected .food-image-container img {
+    transform: scale(1.05);
+}
 
-        .food-label {
-            padding: 14px 16px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-align: center;
-        }
+.food-label {
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+}
 
-        @media (max-width: 640px) {
-            header h1 {
-                font-size: 2rem;
-            }
+.hi {
+    text-align: center;
+    margin-top: 20px; /* Added margin for spacing */
+    color: #FF5722; /* Made it consistent with brand colors */
+}
 
-            .food-label {
-                font-size: 1rem;
-            }
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
 
-            .food-grid {
-                gap: 24px;
-            }
-        }
+.brand-title {
+    font-family: 'Pacifico', cursive;
+    color: #FF7F50;
+    font-size: 2.8rem;
+    margin: 0;
+    text-align: center;
+}
 
-        .hi {
-            text-align: center;
-        }
+/* --- Media Queries for Responsiveness --- */
 
-        .fade-out {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+/* For screens smaller than 1024px (e.g., smaller laptops, large tablets) */
+@media (max-width: 1024px) {
+    main {
+        padding: 25px; /* Slightly less padding */
+        border-radius: 12px;
+    }
 
-        .brand-title {
-            font-family: 'Pacifico', cursive;
-            color: #FF7F50;
-            font-size: 2.8rem;
-            margin: 0;
-            text-align: center;
-        }
+    .food-grid {
+        gap: 25px; /* Slightly less gap */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust minmax for smaller cards */
+    }
+
+    .food-card {
+        border-radius: 12px;
+    }
+
+    .food-image-container {
+        border-radius: 12px 12px 0 0;
+    }
+}
+
+
+/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px; /* Reduce overall padding */
+    }
+
+    header h1 {
+        font-size: 2.2rem; /* Smaller heading size */
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .search-container {
+        flex-direction: column; /* Stack search icon and input */
+        align-items: stretch; /* Stretch input to full width */
+        margin-top: 10px;
+    }
+
+    .search-icon {
+        margin-right: 0;
+        margin-bottom: 8px; /* Space between icon and input */
+        text-align: center;
+    }
+
+    #searchInput {
+        padding: 10px; /* Slightly less padding for input */
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 20px; /* Further reduce main content padding */
+        border-radius: 10px;
+    }
+
+    .food-grid {
+        gap: 20px; /* Further reduce gap */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust minmax */
+    }
+
+    .food-card {
+        border-radius: 10px;
+    }
+
+    .food-image-container {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .food-label {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+
+    .brand-title {
+        font-size: 2.5rem; /* Adjust brand title size */
+    }
+
+    .hi {
+        margin-top: 15px;
+    }
+}
+
+/* For screens smaller than 640px (already present, refining) */
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .food-label {
+        font-size: 1rem;
+    }
+
+    .food-grid {
+        gap: 24px; /* Original gap for <640px */
+        grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+    }
+
+    .food-card {
+        max-width: 300px; /* Limit max width for stacked cards */
+        margin: 0 auto; /* Center stacked cards */
+    }
+
+    main {
+        padding: 15px; /* Even less padding */
+    }
+
+    .brand-title {
+        font-size: 2.2rem;
+    }
+}
+
+/* For screens smaller than 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    #searchInput {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    .food-card {
+        border-radius: 8px;
+    }
+
+    .food-image-container {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .food-label {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .brand-title {
+        font-size: 2rem;
+    }
+
+    .hi {
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+}

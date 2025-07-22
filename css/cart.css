@@ -21,7 +21,7 @@ body.fade-out {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     border-radius: var(--radius);
@@ -81,4 +81,49 @@ body.fade-out {
 .small-button:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 12px var(--hover-shadow);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
+@media (max-width: 768px) {
+    .video-container {
+        padding-bottom: 75%; /* Adjust aspect ratio for smaller screens */
+    }
+
+    .recipe-card {
+        margin-bottom: 20px; /* Add some space between cards when stacked */
+    }
+
+    .compact-box {
+        padding: 12px; /* Reduce padding for compact boxes */
+    }
+
+    .small-button {
+        padding: 6px 12px; /* Reduce button padding */
+        font-size: 0.8rem; /* Smaller font size for buttons */
+    }
+}
+
+/* For screens smaller than 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+    .video-container {
+        padding-bottom: 65%; /* Further adjust aspect ratio */
+        border-radius: 8px; /* Slightly smaller border-radius */
+    }
+
+    .recipe-card {
+        border-radius: 8px; /* Slightly smaller border-radius */
+    }
+
+    .compact-box {
+        padding: 10px; /* Further reduce padding */
+        border-radius: 8px; /* Slightly smaller border-radius */
+    }
+
+    .small-button {
+        padding: 5px 10px; /* Further reduce button padding */
+        font-size: 0.75rem; /* Even smaller font size for buttons */
+        border-radius: 6px; /* Slightly smaller border-radius */
+    }
 }

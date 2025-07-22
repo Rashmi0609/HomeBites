@@ -100,6 +100,7 @@ nav a {
   text-align: center;
   color: #fff;
   position: relative;
+  padding: 0 20px; /* Add padding for smaller screens */
 }
 
 .hero::before {
@@ -210,5 +211,130 @@ footer {
   color: #1e90ff;
 }
 
+/* --- Media Queries for Responsiveness --- */
 
+/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
 
+  nav {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  nav a {
+    margin: 0 10px;
+    display: inline-block;
+    padding: 5px 0;
+  }
+
+  .nav-buttons {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-buttons button {
+    margin: 5px 5px;
+  }
+
+  .hero {
+    height: 60vh; /* Adjust hero height */
+  }
+
+  .hero h1 {
+    font-size: 2.5rem; /* Smaller font size for hero heading */
+  }
+
+  .hero p {
+    font-size: 1rem; /* Smaller font size for hero paragraph */
+  }
+
+  .section {
+    padding: 40px 15px; /* Adjust section padding */
+  }
+
+  .section h2 {
+    font-size: 1.8rem; /* Smaller font size for section headings */
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust card grid */
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* For screens smaller than 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+  header {
+    padding: 10px 15px;
+  }
+
+  .logo-text {
+    font-size: 1.5rem; /* Smaller logo text */
+  }
+
+  .circle {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  nav a {
+    margin: 0 8px;
+    font-size: 0.9rem;
+  }
+
+  .nav-buttons button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    height: 50vh; /* Further adjust hero height */
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .section {
+    padding: 30px 10px;
+  }
+
+  .section h2 {
+    font-size: 1.5rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr; /* Stack cards vertically on very small screens */
+  }
+
+  .card {
+    margin-bottom: 20px; /* Add some space between stacked cards */
+  }
+
+  footer {
+    padding: 30px 15px;
+    font-size: 0.8rem;
+  }
+}
+
+/* For screens larger than 1200px (desktop) */
+@media (min-width: 1201px) {
+  .header, .section {
+    padding-left: calc(50% - 600px); /* Center content on very wide screens */
+    padding-right: calc(50% - 600px);
+  }
+}
