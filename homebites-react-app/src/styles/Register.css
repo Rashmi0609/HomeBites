@@ -94,6 +94,7 @@ body, html {
   border-radius: 10px;
   background: var(--input-bg);
   font-size: 0.95rem;
+  color: var(--text-color);
 }
 
 .input-group label {

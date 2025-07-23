@@ -1,3 +1,4 @@
+import axios from 'axios';
 import '../styles/Register.css'; // Make sure this path is correct
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -19,15 +20,27 @@ function Register() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // You can add validation here if needed
-    console.log('Form submitted:', formData);
-    
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await axios.post('http://localhost:5000/api/auth/register', {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      address: formData.address,
+      contactNumber: formData.phone // backend expects contactNumber
+    });
+
     alert('Registration successful! Please login to continue.');
     navigate('/login');
-  };
+  } catch (error) {
+    console.error('Registration error:', error);
+    alert(error.response?.data?.message || 'Registration failed.');
+  }
+};
+
 
   return (
     <div style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
