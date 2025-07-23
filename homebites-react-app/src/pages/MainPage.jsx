@@ -2,7 +2,11 @@ import React from "react";
 import "./../styles/mainpage.css";
 import { Link } from "react-router-dom";
 
-function MainPage() {
+function MainPage({ user }) {
+    const handleLogout = () => {
+    window.open("http://localhost:5000/logout", "_self");
+  };
+
   return (
     <>
       <header>
@@ -17,9 +21,19 @@ function MainPage() {
           <a href="#dishes">Dishes</a>
           <a href="#contact">Contact</a>
           <span className="nav-buttons">
-            <Link to="/login"><button>Login</button></Link>
-            <Link to="/register"><button>Register</button></Link>
-          </span>
+  {user ? (
+    <>
+      <span style={{ marginRight: '10px' }}>👋 {user.name}</span>
+      <button onClick={handleLogout}>Logout</button>
+    </>
+  ) : (
+    <>
+      <Link to="/login"><button>Login</button></Link>
+      <Link to="/register"><button>Register</button></Link>
+    </>
+  )}
+</span>
+
 
         </nav>
       </header>
