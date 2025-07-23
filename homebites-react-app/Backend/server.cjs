@@ -29,6 +29,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+const authRoutes = require('./routes/authRoutes'); // ⬅️ New import
+app.use('/api/auth', authRoutes); // ⬅️ Mount the register route
+
 // Routes
 app.get('/', (req, res) => res.send('API running'));
 
