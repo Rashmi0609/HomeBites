@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+<<<<<<< HEAD
 // This is the final User Schema with relaxed validation for Google users.
 const UserSchema = new mongoose.Schema({
   // --- FIX IS HERE ---
@@ -45,6 +46,20 @@ const UserSchema = new mongoose.Schema({
   ]
 
 }, { timestamps: true });
+=======
+const UserSchema = new mongoose.Schema({
+  googleId: { type: String },
+  name: String,
+  email: { type: String, required: true, unique: true },
+  password: String,
+  firstName: String,
+  lastName: String,
+  address: String,
+  contactNumber: String
+});
+
+module.exports = mongoose.model('User', UserSchema);
+>>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
 
 // This line prevents the "OverwriteModelError" on server restart
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

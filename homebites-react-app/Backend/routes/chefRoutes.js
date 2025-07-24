@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const router = require('express').Router();
 const Chef = require('../models/Chef');
 const Dish = require('../models/Dish'); // We need this to find the dish ID
@@ -30,7 +31,44 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error fetching chefs:', error);
     res.status(500).json({ message: 'Server error while fetching chefs.' });
+=======
+const express = require('express');
+const router = express.Router();
+const Chef = require('../models/Chef');
+
+// GET /api/chefs/:dishName
+router.get('/:dishName', async (req, res) => {
+  const { dishName } = req.params;
+  console.log('🔍 Looking for chefs who cook:', dishName);
+
+  try {
+    // Case-insensitive match for dish name
+    const chefs = await Chef.find({
+      dishes: {
+        $elemMatch: {
+          $regex: new RegExp(`^${dishName}$`, 'i')
+        }
+      }
+    });
+
+    if (chefs.length === 0) {
+      console.log('⚠️ No chefs found for dish:', dishName);
+    } else {
+      console.log('👨‍🍳 Found chefs:', chefs);
+    }
+
+    res.json(chefs);
+  } catch (err) {
+    console.error('❌ Error fetching chefs:', err);
+    res.status(500).json({ error: 'Server error' });
+>>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
   }
 });
 
 module.exports = router;
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227

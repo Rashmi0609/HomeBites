@@ -39,6 +39,7 @@ function Login() {
     }
   };
 
+<<<<<<< HEAD
   // NEW: Handler for the OTP form. You will add your server logic here later.
   const handleOtpLogin = async (e) => {
     e.preventDefault();
@@ -49,6 +50,20 @@ function Login() {
     alert(`OTP request sent to ${phone}. (Backend logic needed)`);
     // TODO: Add your fetch call to your backend OTP endpoint here
   };
+=======
+if (response.ok) {
+  alert("Login successful!");
+  window.location.href = "/dishes"; // <--- updated here
+} else {
+  alert(data.message || "Login failed");
+}
+
+} catch (error) {
+console.error("Login error:", error);
+alert("An error occurred. Please try again.");
+}
+};
+>>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
 
   return (
     <div className="login-page" style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
