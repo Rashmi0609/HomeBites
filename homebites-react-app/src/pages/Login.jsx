@@ -4,11 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false); 
-  // NEW: State to manage which form is shown: 'email' or 'otp'
   const [loginMode, setLoginMode] = useState('email');
   const navigate = useNavigate();
 
-  // Your existing server logic for email login is preserved
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -29,7 +27,7 @@ function Login() {
 
       if (response.ok) {
         alert("Login successful!");
-        navigate('/dishes');
+        navigate('/dishes'); // or use window.location.href = "/dishes";
       } else {
         alert(data.message || "Login failed");
       }
@@ -39,31 +37,15 @@ function Login() {
     }
   };
 
-<<<<<<< HEAD
-  // NEW: Handler for the OTP form. You will add your server logic here later.
   const handleOtpLogin = async (e) => {
     e.preventDefault();
     const phone = e.target.phone.value;
     if (!phone) {
-        return alert("Please enter a phone number.");
+      return alert("Please enter a phone number.");
     }
     alert(`OTP request sent to ${phone}. (Backend logic needed)`);
     // TODO: Add your fetch call to your backend OTP endpoint here
   };
-=======
-if (response.ok) {
-  alert("Login successful!");
-  window.location.href = "/dishes"; // <--- updated here
-} else {
-  alert(data.message || "Login failed");
-}
-
-} catch (error) {
-console.error("Login error:", error);
-alert("An error occurred. Please try again.");
-}
-};
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
 
   return (
     <div className="login-page" style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
@@ -77,7 +59,6 @@ alert("An error occurred. Please try again.");
 
           <h2 className="welcome-title">Welcome Back</h2>
 
-          {/* --- MODIFIED: Form rendering is now conditional --- */}
           {loginMode === 'email' ? (
             <form id="login-form" className="login-form" onSubmit={handleLogin}>
               <div className="input-group">
@@ -113,7 +94,6 @@ alert("An error occurred. Please try again.");
             <span>or continue with</span>
           </div>
 
-          {/* --- MODIFIED: Buttons are now outside the form and updated --- */}
           <div className="social-buttons">
             <button
               type="button"
@@ -122,16 +102,12 @@ alert("An error occurred. Please try again.");
             >
               <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google
             </button>
-            
-            {/* NEW: Button to toggle between login modes */}
             <button 
               type="button" 
               className="social-btn" 
               onClick={() => setLoginMode(prevMode => prevMode === 'email' ? 'otp' : 'email')}
             >
-              {/* Using emojis as simple icons */}
-              {loginMode === 'email' ? '📞' : '✉️'}
-              {loginMode === 'email' ? ' Login with Number' : ' Login with Email'}
+              {loginMode === 'email' ? '📞 Login with Number' : '✉️ Login with Email'}
             </button>
           </div>
 

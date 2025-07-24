@@ -1,65 +1,49 @@
 const mongoose = require('mongoose');
 
-<<<<<<< HEAD
-// This is the final User Schema with relaxed validation for Google users.
 const UserSchema = new mongoose.Schema({
-  // --- FIX IS HERE ---
-  // The 'required' constraint is removed from firstName and lastName
-  // to prevent errors for users who sign up via Google.
+  // Basic Info
   firstName: {
     type: String,
   },
   lastName: {
     type: String,
   },
-  
-  // --- Other Core User Details ---
   email: {
     type: String,
     required: true,
     unique: true,
   },
   password: {
-    type: String, // Not required, for Google users
+    type: String, // optional for Google users
   },
+
+  // Optional fields
   phone: {
     type: String,
   },
   address: {
     type: String,
   },
+  contactNumber: {
+    type: String, // keep for compatibility
+  },
 
-  // For users who sign in with Google
+  // Google Auth
   googleId: {
     type: String,
   },
-  
-  // Cart functionality remains unchanged
+
+  // Cart Functionality
   cart: [
     {
       chef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chef',
-        required: true
+        required: true,
       },
     }
   ]
-
 }, { timestamps: true });
-=======
-const UserSchema = new mongoose.Schema({
-  googleId: { type: String },
-  name: String,
-  email: { type: String, required: true, unique: true },
-  password: String,
-  firstName: String,
-  lastName: String,
-  address: String,
-  contactNumber: String
-});
 
-module.exports = mongoose.model('User', UserSchema);
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
-
-// This line prevents the "OverwriteModelError" on server restart
+// Prevent OverwriteModelError
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

@@ -1,26 +1,37 @@
 import '../styles/Dish.css';
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
-=======
-import { useEffect, useState } from 'react';
-
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Dish() {
-<<<<<<< HEAD
-  const [dishes, setDishes] = useState([]);
-=======
   const [user, setUser] = useState(null);
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
+  const [dishes, setDishes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Check user login first
   useEffect(() => {
-<<<<<<< HEAD
+    fetch('http://localhost:5000/api/auth/user', {
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Not logged in');
+        return res.json();
+      })
+      .then((data) => {
+        console.log("✅ Logged in user:", data);
+        setUser(data);
+      })
+      .catch((err) => {
+        console.log("⚠️", err.message);
+        navigate('/login'); // Redirect if not logged in
+      });
+  }, []);
+
+  // Fetch dishes
+  useEffect(() => {
     const fetchDishes = async () => {
       try {
         setLoading(true);
@@ -37,30 +48,9 @@ function Dish() {
     fetchDishes();
   }, []);
 
-  // This function navigates to the /chefs page with the selected dish name
+  // Navigate to /chefs?dish=<dishName>
   const handleDishClick = (dishName) => {
     navigate(`/chefs?dish=${encodeURIComponent(dishName)}`);
-=======
-    fetch('http://localhost:5000/auth/user', {
-      credentials: 'include',
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('Not logged in');
-        return res.json();
-      })
-      .then((data) => {
-        console.log("✅ Logged in user:", data);
-        setUser(data);
-      })
-      .catch((err) => {
-        console.log("⚠️", err.message);
-        navigate('/login'); // redirect if not logged in
-      });
-  }, []);
-
-  const handleDishClick = (dishName) => {
-    navigate(`/chefs/${encodeURIComponent(dishName)}`);
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
   };
 
   const filteredDishes = dishes.filter((dish) =>
@@ -103,13 +93,11 @@ function Dish() {
                 className="food-card"
                 role="listitem"
                 aria-label={`Select homemade ${dish.name}`}
-                // ** THIS IS THE CRITICAL LINE **
-                // It ensures the correct function is called when a dish is clicked.
                 onClick={() => handleDishClick(dish.name)}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="food-image-container">
-                  <img src={dish.image} alt={dish.alt} loading="lazy" />
+                  <img src={dish.image} alt={dish.alt || dish.name} loading="lazy" />
                 </div>
                 <div className="food-label">{dish.name}</div>
               </article>
