@@ -1,43 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Chefs.css';
-import { useNavigate } from 'react-router-dom';
-
-const chefs = [
-  {
-    name: 'Ramya Sharma',
-    specialty: 'Traditional South Indian & Homemade Curries',
-    price: 299,
-    rating: 4.8,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5e107373-f170-4e5c-bea2-cbb845c7434c.png',
-  },
-  {
-    name: 'Priya Patel',
-    specialty: 'Gujarati Thali & Sweet Dishes',
-    price: 249,
-    rating: 4.5,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ecf9f7ca-6be8-474f-b779-ee909236eafd.png',
-  },
-  {
-    name: 'Arjun Singh',
-    specialty: 'Punjabi Cuisine & Tandoori Specialties',
-    price: 260,
-    rating: 4.6,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/94092e49-9719-4f5a-9140-3267535f2a48.png',
-  },
-  {
-    name: 'Rekha Nair',
-    specialty: 'Banaras Traditional Cuisine & Sweets',
-    price: 299,
-    rating: 4.7,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/01b57c80-b51d-4cca-86c6-2bf54038bee3.png',
-  }
-];
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 const ChefsPage = () => {
-  const navigate = useNavigate();
+  const [chefs, setChefs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedDish, setSelectedDish] = useState('');
 
-  const handleBookNow = () => {
-    navigate('/cart');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const dishName = searchParams.get('dish');
+    setSelectedDish(dishName || 'All Dishes');
+
+    const fetchChefs = async () => {
+      try {
+        setLoading(true);
+        const apiUrl = dishName
+          ? `http://localhost:5000/api/chefs?dish=${dishName}`
+          : 'http://localhost:5000/api/chefs';
+        
+        const response = await axios.get(apiUrl);
+        setChefs(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch chefs:", err);
+        setError("Could not load chefs. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchChefs();
+  }, [location.search]);
+
+  // --- THIS IS THE KEY CHANGE ---
+  // This function now sends a request to the backend to add a chef to the cart.
+  const handleBookNow = async (chefId) => {
+    try {
+      // Send the chef's ID to the backend /api/cart endpoint
+      await axios.post('http://localhost:5000/api/cart', 
+        { chefId: chefId },
+        { withCredentials: true } // Important: This sends the user's session cookie
+      );
+      
+      alert('Chef added to your cart!');
+      navigate('/cart'); // Automatically take the user to their cart
+    } catch (error) {
+      console.error('Error booking chef:', error);
+      alert(error.response?.data?.message || 'Failed to add chef to cart. Are you logged in?');
+    }
   };
 
   const handleCurrentLocation = () => {
@@ -45,13 +61,9 @@ const ChefsPage = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          window.open(googleMapsUrl, '_blank');
+          window.open(`https://www.google.com/maps?q=${latitude},${longitude}`, '_blank');
         },
-        (error) => {
-          alert('Failed to get your location. Please enable location access.');
-          console.error(error);
-        }
+        (error) => alert('Failed to get your location. Please enable location access.')
       );
     } else {
       alert('Geolocation is not supported by your browser.');
@@ -65,29 +77,38 @@ const ChefsPage = () => {
           Current Location
         </button>
       </div>
-      <h1 className="chefs-title">HomeBites Chefs</h1>
+      <h1 className="chefs-title">
+        Showing Chefs for: <span className="dish-selection">{selectedDish}</span>
+      </h1>
 
-      {chefs.map((chef, index) => (
-        <div className="chef-profile" key={index}>
-          <img src={chef.image} alt={chef.name} className="chef-photo" />
-          <div className="chef-details">
-            <h2>{chef.name}</h2>
-            <p className="specialty">{chef.specialty}</p>
-            <div className="cert-rating">
-              <span className="badge">⭐ Hygienic Certified</span>
-              <span className="rating">⭐ {chef.rating}</span>
+      {loading ? (
+        <p className="status-text">Loading chefs...</p>
+      ) : error ? (
+        <p className="status-text error-text">{error}</p>
+      ) : chefs.length > 0 ? (
+        chefs.map((chef) => (
+          <div className="chef-profile" key={chef._id}>
+            <img src={chef.image} alt={chef.name} className="chef-photo" />
+            <div className="chef-details">
+              <h2>{chef.name}</h2>
+              <p className="specialty">{chef.specialty}</p>
+              <div className="cert-rating">
+                <span className="badge">⭐ Hygienic Certified</span>
+                <span className="rating">⭐ {chef.rating}</span>
+              </div>
+              <p className="price">Price: ₹{chef.price}</p>
+              {/* The button now passes the specific chef's ID */}
+              <button className="book-now-btn" onClick={() => handleBookNow(chef._id)}>
+                Book Now
+              </button>
             </div>
-            <p className="price">Price: ₹{chef.price}</p>
-            <button className="book-now-btn" onClick={handleBookNow}>
-              Book Now
-            </button>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className="status-text">No chefs found for this dish.</p>
+      )}
     </div>
   );
 };
 
-
 export default ChefsPage;
-

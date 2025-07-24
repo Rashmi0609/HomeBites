@@ -1,56 +1,35 @@
 import '../styles/Dish.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const dishes = [
-  {
-    name: 'Paneer Naan',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/67a2e3e4-de07-4242-ab1f-896609586bee.png',
-    alt: 'Fresh homemade paneer naan bread with cheesy filling and garnished with herbs',
-  },
-  {
-    name: 'Chicken Curry',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/19b6ea5a-bc57-4ce0-9629-9d48d7f0ada3.png',
-    alt: 'Bowl of homemade chicken curry with creamy sauce and rice',
-  },
-  {
-    name: 'Vegetable Stir Fry',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ba080565-911a-4820-a924-1f66cc95e477.png',
-    alt: 'Colorful vegetable stir fry with bell peppers, broccoli and snap peas',
-  },
-  {
-    name: 'Chole Bhature',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/db2b6242-76e5-44c4-9a40-4c2fbbca083b.png',
-    alt: 'Plate of spicy chole curry served with fluffy fried bhature bread',
-  },
-  {
-    name: 'Thal',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f7a72b89-327b-4f8b-ab0b-306583adb883.png',
-    alt: 'Traditional Thal meal served on a round platter with various curries, rice, and breads',
-  },
-  {
-    name: 'Caesar Salad',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c10cffc8-ba50-442c-a9d1-107a8b1f7d87.png',
-    alt: 'Fresh homemade Caesar salad with crunchy croutons and shaved parmesan',
-  },
-  {
-    name: 'Curry Chawal',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/eeac2b07-7130-4b44-8b69-00ed7a70d79f.png',
-    alt: 'Plate of traditional curry chawal with rice and rich curry sauce',
-  },
-  {
-    name: 'Fire Rice',
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7bcbf6bf-6f34-4ea4-bca3-39225bd725ab.png',
-    alt: 'Spicy fire rice dish served with vibrant vegetables and chili peppers',
-  },
-];
+import axios from 'axios';
 
 function Dish() {
+  const [dishes, setDishes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://localhost:5000/api/dishes');
+        setDishes(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch dishes:", err);
+        setError("Could not load dishes. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDishes();
+  }, []);
+
+  // This function navigates to the /chefs page with the selected dish name
   const handleDishClick = (dishName) => {
-    navigate('/chefs');
+    navigate(`/chefs?dish=${encodeURIComponent(dishName)}`);
   };
 
   const filteredDishes = dishes.filter(dish =>
@@ -63,7 +42,6 @@ function Dish() {
         <h1 className="brand-title">HomeBites</h1>
         <p className="hi">Select which homemade food you want to enjoy today</p>
         <div className="search-container">
-          <span className="material-icons search-icon"></span>
           <input
             type="text"
             id="searchInput"
@@ -77,14 +55,20 @@ function Dish() {
 
       <main>
         <section className="food-grid" role="list" aria-label="Homemade food selection">
-          {filteredDishes.length > 0 ? (
-            filteredDishes.map((dish, index) => (
+          {loading ? (
+            <p className="status-text">Loading dishes...</p>
+          ) : error ? (
+            <p className="status-text error-text">{error}</p>
+          ) : filteredDishes.length > 0 ? (
+            filteredDishes.map((dish) => (
               <article
-                key={index}
+                key={dish._id}
                 tabIndex={0}
                 className="food-card"
                 role="listitem"
                 aria-label={`Select homemade ${dish.name}`}
+                // ** THIS IS THE CRITICAL LINE **
+                // It ensures the correct function is called when a dish is clicked.
                 onClick={() => handleDishClick(dish.name)}
                 style={{ cursor: 'pointer' }}
               >
@@ -95,9 +79,7 @@ function Dish() {
               </article>
             ))
           ) : (
-            <p style={{ textAlign: 'center', fontWeight: 'bold', padding: '2rem' }}>
-              No dishes found.
-            </p>
+            <p className="status-text">No dishes found matching your search.</p>
           )}
         </section>
       </main>

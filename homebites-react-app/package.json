@@ -16,10 +16,12 @@
     "express-session": "^1.18.2",
     "mongoose": "^8.16.4",
     "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3"
+    "react-router-dom": "^7.6.3",
+    "twilio": "^5.7.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

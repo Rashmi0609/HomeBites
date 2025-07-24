@@ -12,7 +12,7 @@ function Register() {
     address: '',
     phone: '',
   });
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,26 +21,28 @@ function Register() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    setLoading(true);
+    try {
+      // Use the reverted /register endpoint
+      await axios.post('http://localhost:5000/api/auth/register', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        address: formData.address,
+        phone: formData.phone
+      });
 
-  try {
-    const response = await axios.post('http://localhost:5000/api/auth/register', {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      password: formData.password,
-      address: formData.address,
-      contactNumber: formData.phone // backend expects contactNumber
-    });
-
-    alert('Registration successful! Please login to continue.');
-    navigate('/login');
-  } catch (error) {
-    console.error('Registration error:', error);
-    alert(error.response?.data?.message || 'Registration failed.');
-  }
-};
-
+      alert('Registration successful! Please login to continue.');
+      navigate('/login');
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert(error.response?.data?.message || 'Registration failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
@@ -51,85 +53,36 @@ function Register() {
             <div className="brand-text">Home Bites</div>
             <div className="tagline">Create your account to enjoy Ghar ka khana ❤</div>
           </div>
-
           <h2 className="welcome-title">Sign Up</h2>
-
           <form className="signup-form" onSubmit={handleSubmit} noValidate>
             <div className="input-group">
-              <input
-                type="text"
-                name="firstName"
-                required
-                placeholder=" "
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              <label htmlFor="firstName">First Name</label>
+              <input type="text" name="firstName" required placeholder=" " value={formData.firstName} onChange={handleChange} />
+              <label>First Name</label>
             </div>
-
             <div className="input-group">
-              <input
-                type="text"
-                name="lastName"
-                required
-                placeholder=" "
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-              <label htmlFor="lastName">Last Name</label>
+              <input type="text" name="lastName" required placeholder=" " value={formData.lastName} onChange={handleChange} />
+              <label>Last Name</label>
             </div>
-
             <div className="input-group">
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder=" "
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <label htmlFor="email">Email Address</label>
+              <input type="email" name="email" required placeholder=" " value={formData.email} onChange={handleChange} />
+              <label>Email Address</label>
             </div>
-
             <div className="input-group">
-              <input
-                type="password"
-                name="password"
-                required
-                placeholder=" "
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <label htmlFor="password">Password</label>
+              <input type="password" name="password" required placeholder=" " value={formData.password} onChange={handleChange} />
+              <label>Password</label>
             </div>
-
             <div className="input-group">
-              <input
-                type="text"
-                name="address"
-                required
-                placeholder=" "
-                value={formData.address}
-                onChange={handleChange}
-              />
-              <label htmlFor="address">Address</label>
+              <input type="text" name="address" required placeholder=" " value={formData.address} onChange={handleChange} />
+              <label>Address</label>
             </div>
-
             <div className="input-group">
-              <input
-                type="tel"
-                name="phone"
-                required
-                placeholder=" "
-                value={formData.phone}
-                onChange={handleChange}
-              />
-              <label htmlFor="phone">Contact Number</label>
+              <input type="tel" name="phone" required placeholder=" " value={formData.phone} onChange={handleChange} />
+              <label>Contact Number</label>
             </div>
-
-            <button type="submit" className="signup-btn">Sign Up</button>
+            <button type="submit" className="signup-btn" disabled={loading}>
+              {loading ? 'Registering...' : 'Sign Up'}
+            </button>
           </form>
-
           <div className="signup-link">
             Already have an account? <Link to="/login">Login</Link>
           </div>

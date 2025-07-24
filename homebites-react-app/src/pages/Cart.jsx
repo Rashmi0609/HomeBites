@@ -1,149 +1,139 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Cart.css";
+import axios from "axios";
+import "../styles/Cart.css"; // Your main stylesheet
 
 const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleInstantOrder = () => {
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://localhost:5000/api/cart', {
+          withCredentials: true,
+        });
+        setCartItems(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch cart:", err);
+        setError("Could not load your cart. Please try logging in again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCart();
+  }, []);
+
+  const handleRemoveItem = async (itemId) => {
+    try {
+        const response = await axios.delete(`http://localhost:5000/api/cart/${itemId}`, {
+            withCredentials: true,
+        });
+        setCartItems(response.data);
+        alert('Chef removed from cart.');
+    } catch (error) {
+        console.error('Error removing item:', error);
+        alert(error.response?.data?.message || 'Failed to remove item from cart.');
+    }
+  };
+  
+  const handleProceedToPayment = () => {
     navigate("/payment");
   };
 
-  const handleScheduleOrder = () => {
-    navigate("/dishes");
-  };
+  const totalPrice = cartItems.reduce((total, item) => total + item.chef.price, 0);
 
   return (
-    <div className="cartWrapper">
-      <header
-  className="cartHeader"
-  style={{
-    padding: "40px 0",
-    textAlign: "center",
-    backgroundColor: "#F97316",
-    color: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "220px",
-  }}
->
-  <h1 className="cartTitle" style={{ fontSize: "2.5rem", marginBottom: "8px" }}>
-    Homemade Chole Bhature
-  </h1>
-  <p className="cartSubtitle" style={{ fontSize: "1.1rem" }}>
-    Cook this North Indian delight at home!
-  </p>
-</header>
-      <main
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "40px 20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "40px",
-        }}
-      >
-        <section>
-          <div className="videoContainer">
-            <iframe
-              src="https://www.youtube.com/embed/j7b69ReQ5fA"
-              title="Chole Bhature Video"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </section>
+    <div className="cart-page-container">
+      {/* --- STYLE FIX FOR THE IMAGE --- */}
+      <style>{`
+        .cart-item-card {
+          display: flex; /* Aligns image and details side-by-side */
+          align-items: center; /* Vertically centers the content */
+          gap: 20px;
+          background-color: #fff;
+          padding: 15px;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          margin-bottom: 20px;
+        }
+        .cart-item-image {
+          width: 120px;   /* Sets a fixed width for the image */
+          height: 120px;  /* Sets a fixed height for the image */
+          border-radius: 8px;
+          object-fit: cover; /* Ensures the image covers the area without distortion */
+        }
+      `}</style>
 
-        <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "30px" }}>
-
-          <div className="recipeCard">
-            <h2 style={{ color: "#FFA500", marginBottom: "16px" }}>Ingredients</h2>
-            <ul style={{ paddingLeft: "20px", lineHeight: "1.8" }}>
-              <li>2 cups chickpeas (soaked overnight)</li>
-              <li>2 tbsp oil</li>
-              <li>1 tsp cumin seeds</li>
-              <li>1 large onion (chopped)</li>
-              <li>2 tomatoes (pureed)</li>
-              <li>1 tbsp ginger-garlic paste</li>
-              <li>Chole masala & spices</li>
-              <li>2 cups maida</li>
-              <li>½ cup fine sooji</li>
-              <li>2 tbsp yogurt</li>
-              <li>1 tsp sugar</li>
-              <li>Oil for deep frying</li>
-            </ul>
-          </div>
-
-          <div className="recipeCard">
-            <h2 style={{ color: "#FFA500", marginBottom: "16px" }}>Steps</h2>
-            <ol style={{ paddingLeft: "20px", lineHeight: "1.8" }}>
-              <li>Pressure cook chickpeas with salt and tea bag (5-6 whistles).</li>
-              <li>Sauté cumin and onions, add ginger-garlic paste and tomato puree.</li>
-              <li>Add masalas, then cooked chickpeas. Simmer 15-20 minutes.</li>
-              <li>Mix maida, sooji, yogurt, sugar into dough. Rest 2 hrs.</li>
-              <li>Roll and deep fry bhature until puffed and golden.</li>
-            </ol>
-          </div>
-        </section>
-
-        <section className="compactBox">
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <h3 style={{ fontSize: "1.3rem", fontWeight: "bold", color: "#FF4500" }}>
-              Chole Bhature Ingredient Kit
-            </h3>
-            <p style={{ color: "#555" }}>
-              Includes pre-measured dry ingredients for perfect results
-            </p>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "8px" }}>
-              <span style={{ fontWeight: "bold", fontSize: "1.2rem", color: "#FF4500" }}>
-                ₹299
-              </span>
-              <span style={{ textDecoration: "line-through", color: "#aaa" }}>₹399</span>
-              <span
-                style={{
-                  backgroundColor: "#D4EDDA",
-                  color: "#2E7D32",
-                  padding: "4px 8px",
-                  borderRadius: "6px",
-                  fontSize: "0.85rem",
-                }}
-              >
-                25% OFF
-              </span>
+      <header className="cart-header">
+        <h1>Your Bookings</h1>
+        <p>Review the chefs you've selected before proceeding to payment.</p>
+      </header>
+      
+      <main className="cart-main">
+        {loading ? (
+          <p className="status-text">Loading your cart...</p>
+        ) : error ? (
+          <p className="status-text error-text">{error}</p>
+        ) : cartItems.length > 0 ? (
+          <div className="cart-content">
+            <div className="cart-items-list">
+              {cartItems.map((item) => (
+                <div className="cart-item-card" key={item._id}>
+                  <img src={item.chef.image} alt={item.chef.name} className="cart-item-image" />
+                  <div className="cart-item-details">
+                    <h2>{item.chef.name}</h2>
+                    <p className="specialty">{item.chef.specialty}</p>
+                    <p className="price">Price: ₹{item.chef.price}</p>
+                  </div>
+                  <button 
+                    className="remove-item-btn" 
+                    onClick={() => handleRemoveItem(item._id)}
+                    aria-label={`Remove ${item.chef.name} from cart`}
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
             </div>
 
-            <div style={{ marginTop: "20px", display: "flex", gap: "12px" }}>
-              <button
-                onClick={handleScheduleOrder}
-                className="smallButton"
-                style={{ backgroundColor: "#FFA500", color: "white" }}
+            <div className="cart-summary">
+              <h2>Order Summary</h2>
+              <div className="summary-row">
+                <span>Subtotal</span>
+                <span>₹{totalPrice}</span>
+              </div>
+              <div className="summary-row">
+                <span>Taxes & Fees</span>
+                <span>₹{(totalPrice * 0.1).toFixed(2)}</span>
+              </div>
+              <hr />
+              <div className="summary-row total">
+                <span>Total</span>
+                <span>₹{(totalPrice * 1.1).toFixed(2)}</span>
+              </div>
+              <button 
+                className="payment-btn" 
+                onClick={handleProceedToPayment}
               >
-                <i className="fas fa-clock"></i> Schedule Order
-              </button>
-              <button
-                onClick={handleInstantOrder}
-                className="smallButton"
-                style={{ backgroundColor: "#28a745", color: "white" }}
-              >
-                <i className="fas fa-bolt"></i> Instant Order
+                Proceed to Payment
               </button>
             </div>
           </div>
-        </section>
+        ) : (
+          <div className="empty-cart">
+            <h2>Your cart is empty.</h2>
+            <p>Go to the dishes page to find and book a chef!</p>
+            <button onClick={() => navigate('/dishes')} className="browse-dishes-btn">
+              Browse Dishes
+            </button>
+          </div>
+        )}
       </main>
-
-      <footer
-        style={{
-          backgroundColor: "#F97316",
-          color: "#fff",
-          textAlign: "center",
-          padding: "20px",
-        }}
-      >
-        <p>© 2025 HomeBites. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

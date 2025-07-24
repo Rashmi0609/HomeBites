@@ -7,66 +7,38 @@ const passport = require('passport');
 
 // Load environment variables and config
 dotenv.config();
-require('./config/db')();           // Connect to MongoDB
-require('./config/passport');       // Load Google OAuth config
+require('./config/db')();
+require('./config/passport');
 
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:5173',  // Your React frontend
-  credentials: true
-}));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
-
-// Express-session middleware
-app.use(session({
-  secret: 'your_secret_key',        // Change this in production
-  resave: false,
-  saveUninitialized: true
-}));
-
+app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authRoutes = require('./routes/authRoutes'); // ⬅️ New import
-app.use('/api/auth', authRoutes); // ⬅️ Mount the register route
+// --- Route Handling ---
+const authRoutes = require('./routes/authRoutes');
+app.use('/auth', authRoutes);
 
-// Routes
-app.get('/', (req, res) => res.send('API running'));
+const dishRoutes = require('./routes/dishRoutes');
+app.use('/api/dishes', dishRoutes);
 
-// Google OAuth Routes
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+const chefRoutes = require('./routes/chefRoutes');
+app.use('/api/chefs', chefRoutes);
 
-app.get('/auth/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/',
-    session: true,
-  }),
-  (req, res) => {
-    // Redirect to frontend after login
-    res.redirect('http://localhost:5173');
-  }
-);
+const cartRoutes = require('./routes/cartRoutes');
+app.use('/api/cart', cartRoutes);
 
-// Logout route (optional)
-app.get('/logout', (req, res) => {
-  req.logout(() => {
-    res.redirect('http://localhost:5173');
-  });
-});
-// Get current logged-in user
-app.get('/auth/user', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json(req.user);
-  } else {
-    res.status(401).json({ msg: 'Not authenticated' });
-  }
-});
+// ** ADD THESE TWO LINES **
+const orderRoutes = require('./routes/orderRoutes'); // 1. Import the new order routes
+app.use('/api/orders', orderRoutes);               // 2. Use the routes with the /api/orders prefix
 
+// Base route
+app.get('/', (req, res) => res.send('API is running successfully'));
 
-// Start server
+// --- Start Server ---
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

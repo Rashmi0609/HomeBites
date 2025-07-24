@@ -8,12 +8,12 @@ import Payment from "./pages/Payment";
 import TrackOrder from "./pages/Trackorder";
 import ChefsPage from "./pages/Chefs";
 import Cart from "./pages/Cart";
+import LoginSuccess from "./pages/LoginSuccess"; // <-- 1. IMPORT THE NEW COMPONENT
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch logged-in user on load
   useEffect(() => {
     fetch("http://localhost:5000/auth/user", {
       credentials: "include",
@@ -32,7 +32,7 @@ function App() {
       });
   }, []);
 
-  if (loading) return <div>Loading...</div>; // Optional loading state
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Router>
@@ -45,6 +45,10 @@ function App() {
         <Route path="/trackorder" element={<TrackOrder user={user} />} />
         <Route path="/chefs" element={<ChefsPage />} />
         <Route path="/cart" element={<Cart user={user} />} />
+        
+        {/* --- 2. ADD THE NEW ROUTE FOR THE SUCCESS PAGE --- */}
+        <Route path="/login-success" element={<LoginSuccess />} />
+
       </Routes>
     </Router>
   );
