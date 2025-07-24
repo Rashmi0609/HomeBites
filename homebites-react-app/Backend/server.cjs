@@ -29,6 +29,15 @@
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+// const authRoutes = require('./routes/authRoutes'); // ⬅️ New import
+// const chefRoutes = require('./routes/chefRoutes');
+// const cartRoutes = require('./routes/cartRoutes');
+
+
+// app.use('/api/auth', authRoutes); // ⬅️ Mount the register route
+// app.use('/api/chefs', chefRoutes);
+// app.use('/api/cart', cartRoutes);
+
 // // Routes
 // app.get('/', (req, res) => res.send('API running'));
 
@@ -37,26 +46,16 @@
 //   passport.authenticate('google', { scope: ['profile', 'email'] })
 // );
 
-// // app.get('/auth/google/callback',
-// //   passport.authenticate('google', {
-// //     failureRedirect: '/',
-// //     session: true,
-// //   }),
-// //   (req, res) => {
-// //     // Redirect to frontend after login
-// //     res.redirect('http://localhost:5173');
-// //   }
-// // );
 // app.get('/auth/google/callback',
 //   passport.authenticate('google', {
 //     failureRedirect: '/',
 //     session: true,
 //   }),
 //   (req, res) => {
-//     res.redirect('http://localhost:5173/login');
+//     // Redirect to frontend after login
+//     res.redirect('http://localhost:5173');
 //   }
 // );
-
 
 // // Logout route (optional)
 // app.get('/logout', (req, res) => {
@@ -79,6 +78,7 @@
 // app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
+
 //
 const express = require('express');
 const mongoose = require('mongoose');
@@ -87,69 +87,81 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 
-// Load environment variables and config
+// Load env & configs
 dotenv.config();
-require('./config/db')();           // MongoDB connection
-require('./config/passport');       // Google OAuth config
+require('./config/db')();
+require('./config/passport');
 
 const app = express();
 
-// CORS for frontend
+// Middleware
 app.use(cors({
   origin: 'http://localhost:5173',
-  credentials: true
+  credentials: true // ✅ must be true for cookies
 }));
 
 app.use(express.json());
 
-// Sessions
-app.use(session({
-  secret: 'your_secret_key', // 🔐 Replace in production
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false,      // true if using HTTPS
-    httpOnly: true,     // prevent client-side access to cookies
-  }
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, // ✅ must be false in local HTTP (true only with HTTPS)
+      sameSite: 'lax' // ✅ required for frontend-backend on different ports
+    }
+  })
+);
 
-// Passport setup
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-// 🆕 Local Auth Routes (manual login/logout/user check)
-app.use('/auth', require('./routes/auth')); // STEP 2 ✅
+// Routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 
 // Google OAuth Routes
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-// After Google login
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/',
-    session: true,
+    failureRedirect: 'http://localhost:5173/login',
+    session: true
   }),
   (req, res) => {
-    // ✅ Redirect to login page with user info in URL (Google Login)
-    const { name, email, picture } = req.user;
-    res.redirect(`http://localhost:5173/login?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&image=${encodeURIComponent(picture || '')}`);
+    res.redirect('http://localhost:5173/dishes'); // redirect after successful login
   }
 );
 
-// Optional logout route
+// Logout
 app.get('/logout', (req, res) => {
   req.logout(() => {
-    res.clearCookie('connect.sid');
     res.redirect('http://localhost:5173');
   });
 });
 
-// Home route
-app.get('/', (req, res) => res.send('API running'));
+// Get current user
+app.get('/auth/user', (req, res) => {
+  console.log("📦 Session:", req.session);
+  console.log("👤 User from session:", req.user);
+
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ msg: 'Not authenticated' });
+  }
+});
+
+// Default
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
-
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

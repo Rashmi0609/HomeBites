@@ -43,7 +43,8 @@ function App() {
         <Route path="/dishes" element={<Dish user={user} />} />
         <Route path="/payment" element={<Payment user={user} />} />
         <Route path="/trackorder" element={<TrackOrder user={user} />} />
-        <Route path="/chefs" element={<ChefsPage />} />
+        <Route path="/chefs/:dish" element={<ChefsPage user={user} />} />
+
         <Route path="/cart" element={<Cart user={user} />} />
       </Routes>
     </Router>

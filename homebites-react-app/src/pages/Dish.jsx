@@ -1,5 +1,6 @@
 import '../styles/Dish.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 const dishes = [
@@ -46,14 +47,33 @@ const dishes = [
 ];
 
 function Dish() {
+  const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetch('http://localhost:5000/auth/user', {
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Not logged in');
+        return res.json();
+      })
+      .then((data) => {
+        console.log("✅ Logged in user:", data);
+        setUser(data);
+      })
+      .catch((err) => {
+        console.log("⚠️", err.message);
+        navigate('/login'); // redirect if not logged in
+      });
+  }, []);
+
   const handleDishClick = (dishName) => {
-    navigate('/chefs');
+    navigate(`/chefs/${encodeURIComponent(dishName)}`);
   };
 
-  const filteredDishes = dishes.filter(dish =>
+  const filteredDishes = dishes.filter((dish) =>
     dish.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -61,9 +81,13 @@ function Dish() {
     <div style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
       <header className="header-center">
         <h1 className="brand-title">HomeBites</h1>
-        <p className="hi">Select which homemade food you want to enjoy today</p>
+        <p className="hi">
+          {user
+            ? `Welcome, ${user.name || user.firstName}! Select which homemade food you want to enjoy today.`
+            : 'Select which homemade food you want to enjoy today'}
+        </p>
+
         <div className="search-container">
-          <span className="material-icons search-icon"></span>
           <input
             type="text"
             id="searchInput"

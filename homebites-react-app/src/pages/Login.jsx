@@ -6,18 +6,37 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault(); 
+ const handleLogin = async (e) => {
+e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+const email = e.target.email.value;
+const password = e.target.password.value;
 
-    if (email && password) {
-      navigate('/dishes');
-    } else {
-      alert("Please enter both email and password.");
-    }
-  };
+if (!email || !password) {
+return alert("Please enter both email and password.");
+}
+
+try {
+const response = await fetch('http://localhost:5000/api/auth/login', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+credentials: 'include', // important if you're using sessions
+body: JSON.stringify({ email, password })
+});
+const data = await response.json();
+
+if (response.ok) {
+  alert("Login successful!");
+  window.location.href = "/dishes"; // <--- updated here
+} else {
+  alert(data.message || "Login failed");
+}
+
+} catch (error) {
+console.error("Login error:", error);
+alert("An error occurred. Please try again.");
+}
+};
 
   return (
     <div className="login-page" style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
