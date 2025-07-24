@@ -1,44 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/Chefs.css';
-import { useNavigate } from 'react-router-dom';
-
-const chefs = [
-  {
-    name: 'Ramya Sharma',
-    specialty: 'Traditional South Indian & Homemade Curries',
-    price: 299,
-    rating: 4.8,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5e107373-f170-4e5c-bea2-cbb845c7434c.png',
-  },
-  {
-    name: 'Priya Patel',
-    specialty: 'Gujarati Thali & Sweet Dishes',
-    price: 249,
-    rating: 4.5,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ecf9f7ca-6be8-474f-b779-ee909236eafd.png',
-  },
-  {
-    name: 'Arjun Singh',
-    specialty: 'Punjabi Cuisine & Tandoori Specialties',
-    price: 260,
-    rating: 4.6,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/94092e49-9719-4f5a-9140-3267535f2a48.png',
-  },
-  {
-    name: 'Rekha Nair',
-    specialty: 'Banaras Traditional Cuisine & Sweets',
-    price: 299,
-    rating: 4.7,
-    image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/01b57c80-b51d-4cca-86c6-2bf54038bee3.png',
-  }
-];
 
 const ChefsPage = () => {
+  const { dish } = useParams();
+
+  const [chefs, setChefs] = useState([]);
   const navigate = useNavigate();
 
-  const handleBookNow = () => {
-    navigate('/cart');
+  useEffect(() => {
+  const fetchChefs = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/chefs/${dish}`);
+      const data = await response.json();
+      setChefs(data);
+    } catch (err) {
+      console.error("Failed to fetch chefs:", err);
+    }
   };
+
+  if (dish) {
+    fetchChefs();
+  }
+}, [dish]);
+
+  const handleBookNow = async (chef) => {
+  if (!user || !user._id) {
+    alert("Please login to add items to cart.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        userId: user._id,
+        chefId: chef._id,
+        dishName: dish,
+
+        quantity: 1 // default to 1
+      })
+    });
+
+    if (response.ok) {
+      navigate("/cart");
+    } else {
+      alert("Failed to add to cart.");
+    }
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    alert("Something went wrong.");
+  }
+};
+
 
   const handleCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -65,29 +83,43 @@ const ChefsPage = () => {
           Current Location
         </button>
       </div>
-      <h1 className="chefs-title">HomeBites Chefs</h1>
 
-      {chefs.map((chef, index) => (
-        <div className="chef-profile" key={index}>
-          <img src={chef.image} alt={chef.name} className="chef-photo" />
-          <div className="chef-details">
-            <h2>{chef.name}</h2>
-            <p className="specialty">{chef.specialty}</p>
-            <div className="cert-rating">
-              <span className="badge">⭐ Hygienic Certified</span>
-              <span className="rating">⭐ {chef.rating}</span>
+     <h1 className="chefs-title">Chefs for "{decodeURIComponent(dish)}"</h1>
+
+
+      {chefs.length > 0 ? (
+        chefs.map((chef, index) => (
+          <div className="chef-profile" key={index}>
+            <img
+  src={chef.image}
+  alt={chef.name}
+  className="chef-photo"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = '/default-chef.jpeg';
+  }}
+/>
+
+            <div className="chef-details">
+              <h2>{chef.name}</h2>
+              <p className="specialty">{chef.location}</p>
+              <div className="cert-rating">
+                <span className="badge">⭐ Hygienic Certified</span>
+                <span className="rating">⭐ {chef.rating}</span>
+              </div>
+              <p className="price">Dishes: {chef.dishes?.join(', ')}</p>
+              <button className="book-now-btn" onClick={() => handleBookNow(chef)}>
+  Book Now
+</button>
+
             </div>
-            <p className="price">Price: ₹{chef.price}</p>
-            <button className="book-now-btn" onClick={handleBookNow}>
-              Book Now
-            </button>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No chefs found for this dish.</p>
+      )}
     </div>
   );
 };
 
-
 export default ChefsPage;
-

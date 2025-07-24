@@ -50,8 +50,10 @@ function Dish() {
   const navigate = useNavigate();
 
   const handleDishClick = (dishName) => {
-    navigate('/chefs');
-  };
+  navigate(`/chefs/${encodeURIComponent(dishName)}`);
+};
+
+
 
   const filteredDishes = dishes.filter(dish =>
     dish.name.toLowerCase().includes(searchTerm.toLowerCase())

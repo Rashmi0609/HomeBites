@@ -30,7 +30,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require('./routes/authRoutes'); // ⬅️ New import
+const chefRoutes = require('./routes/chefRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+
+
 app.use('/api/auth', authRoutes); // ⬅️ Mount the register route
+app.use('/api/chefs', chefRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Routes
 app.get('/', (req, res) => res.send('API running'));
