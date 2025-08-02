@@ -2,7 +2,6 @@ const router = require('express').Router();
 const User = require('../models/User');
 const Order = require('../models/Order');
 
-// Middleware to ensure the user is logged in
 const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
@@ -10,7 +9,7 @@ const isAuthenticated = (req, res, next) => {
   res.status(401).json({ message: 'You must be logged in to perform this action.' });
 };
 
-// --- Your existing route to CREATE a new order (UNCHANGED) ---
+// CREATE A NEW ORDER
 router.post('/', isAuthenticated, async (req, res) => {
   try {
     const { paymentMethod } = req.body;
@@ -41,30 +40,22 @@ router.post('/', isAuthenticated, async (req, res) => {
     await user.save();
     res.status(201).json({ message: 'Order placed successfully!', order: newOrder });
   } catch (error) {
-    console.error('Error creating order:', error);
     res.status(500).json({ message: 'Server error while creating order.' });
   }
 });
 
-// === NEW: GET LATEST ORDER ===
-// This endpoint finds the most recent order for the logged-in user.
-// Handles GET requests to /api/orders/latest
+// GET LATEST ORDER
 router.get('/latest', isAuthenticated, async (req, res) => {
     try {
-        // Find orders for the current user, sort by creation date (newest first), and get only one
         const latestOrder = await Order.findOne({ user: req.user.id })
                                        .sort({ createdAt: -1 });
-
         if (!latestOrder) {
             return res.status(404).json({ message: 'You have no recent orders.' });
         }
-
         res.status(200).json(latestOrder);
     } catch (error) {
-        console.error('Error fetching latest order:', error);
         res.status(500).json({ message: 'Server error while fetching latest order.' });
     }
 });
-
 
 module.exports = router;

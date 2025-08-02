@@ -1,129 +1,210 @@
 :root {
     --white: #ffffff;
-    --light-shadow: rgba(0, 0, 0, 0.1);
-    --medium-shadow: rgba(0, 0, 0, 0.12);
-    --hover-shadow: rgba(0, 0, 0, 0.15);
-    --transition-speed: 0.3s;
+    --light-shadow: rgba(0, 0, 0, 0.08);
+    --medium-shadow: rgba(0, 0, 0, 0.1);
     --radius: 12px;
+    --primary-text: #2d3748;
+    --secondary-text: #718096;
+    --background-color: #f7fafc;
 }
 
-/* Page transition effect */
 body {
-    opacity: 1;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background-color);
+    color: var(--primary-text);
+    margin: 0;
 }
 
-body.fade-out {
-    opacity: 0;
-    transform: scale(1.01);
+/* --- Main Page Structure --- */
+.cart-page-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
 }
 
+.cart-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
 
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
+.cart-header h1 {
+    font-size: 2.5rem;
+}
+
+.cart-header p {
+    color: var(--secondary-text);
+    font-size: 1.1rem;
+}
+
+/* --- THIS IS THE KEY FIX FOR THE LAYOUT --- */
+/* This creates the two-column layout */
+.cart-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem; /* Creates space between the two columns */
+}
+
+/* Column 1: Takes up the majority of the space */
+.cart-items-list {
+    flex: 2;
+}
+
+/* Column 2: Takes up the remaining space and sticks to the top on scroll */
+.cart-summary {
+    flex: 1;
+    position: sticky;
+    top: 2rem;
+}
+/* --- END OF LAYOUT FIX --- */
+
+
+/* --- STYLING FOR THE BOOKING CARD --- */
+.booking-card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px var(--light-shadow);
     overflow: hidden;
-    border-radius: var(--radius);
-    box-shadow: 0 4px 12px var(--light-shadow);
+    margin-bottom: 1.5rem;
+    display: flex; /* Makes image and details sit side-by-side */
+    position: relative; /* Needed for positioning the remove button */
+    transition: box-shadow 0.3s ease;
 }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
-.recipe-card {
-    background-color: var(--white);
-    border-radius: var(--radius);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    box-shadow: 0 4px 12px var(--light-shadow);
-}
-
-.recipe-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 20px 25px -5px var(--light-shadow),
-                0 10px 10px -5px var(--light-shadow);
-}
-
-
-.compact-box {
-    background-color: var(--white);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: 0 6px 14px var(--light-shadow);
-    transition: box-shadow var(--transition-speed);
-}
-
-.compact-box:hover {
+.booking-card:hover {
     box-shadow: 0 8px 20px var(--medium-shadow);
 }
 
+/* --- THIS IS THE KEY FIX FOR THE IMAGE SIZE --- */
+.booking-card-image {
+    width: 160px;       /* Sets a fixed medium width */
+    height: 160px;      /* Sets a fixed medium height */
+    object-fit: cover;  /* This crops the image cleanly, no stretching */
+    flex-shrink: 0;     /* Prevents image from shrinking if the container gets squeezed */
+}
 
-.small-button {
-    padding: 8px 16px;
-    font-size: 0.875rem;
+.booking-card-details {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column; /* Stacks details vertically */
+    flex-grow: 1; /* Allows this section to take up the remaining space */
+}
+
+.booking-card-details h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+}
+
+.booking-card-details .specialty {
+    color: var(--secondary-text);
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Pushes the price to the bottom */
+}
+
+.booking-card-details .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.remove-item-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #fde8e8;
+    color: #c53030;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.remove-item-btn:hover {
+    background-color: #c53030;
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+/* Styles for the order summary card */
+.cart-summary .booking-card {
+    display: block; /* Overrides the flex display for the summary card */
+}
+
+.cart-summary .booking-card-details {
+    padding: 1.5rem;
+}
+
+.cart-summary h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.summary-line.total {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.proceed-to-payment-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background-color: #2d3748;
+    color: var(--white);
     border: none;
     border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.proceed-to-payment-btn:hover {
+    background-color: #1a202c;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 4rem 2rem;
     background-color: var(--white);
-    color: #333;
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    border-radius: var(--radius);
+}
+
+.browse-dishes-btn {
+    padding: 1rem 2rem;
+    margin-top: 1.5rem;
+    background-color: #2d3748;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.small-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px var(--hover-shadow);
-}
-
 /* --- Media Queries for Responsiveness --- */
-
-/* For screens smaller than 768px (e.g., tablets and large mobile devices) */
 @media (max-width: 768px) {
-    .video-container {
-        padding-bottom: 75%; /* Adjust aspect ratio for smaller screens */
+    .cart-content {
+        flex-direction: column; /* Stack columns on smaller screens */
     }
 
-    .recipe-card {
-        margin-bottom: 20px; /* Add some space between cards when stacked */
-    }
-
-    .compact-box {
-        padding: 12px; /* Reduce padding for compact boxes */
-    }
-
-    .small-button {
-        padding: 6px 12px; /* Reduce button padding */
-        font-size: 0.8rem; /* Smaller font size for buttons */
-    }
-}
-
-/* For screens smaller than 480px (e.g., mobile devices) */
-@media (max-width: 480px) {
-    .video-container {
-        padding-bottom: 65%; /* Further adjust aspect ratio */
-        border-radius: 8px; /* Slightly smaller border-radius */
-    }
-
-    .recipe-card {
-        border-radius: 8px; /* Slightly smaller border-radius */
-    }
-
-    .compact-box {
-        padding: 10px; /* Further reduce padding */
-        border-radius: 8px; /* Slightly smaller border-radius */
-    }
-
-    .small-button {
-        padding: 5px 10px; /* Further reduce button padding */
-        font-size: 0.75rem; /* Even smaller font size for buttons */
-        border-radius: 6px; /* Slightly smaller border-radius */
+    .cart-summary {
+        position: static; /* Unstick the summary card */
+        width: 100%;
     }
 }

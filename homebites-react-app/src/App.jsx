@@ -8,7 +8,7 @@ import Payment from "./pages/Payment";
 import TrackOrder from "./pages/Trackorder";
 import ChefsPage from "./pages/Chefs";
 import Cart from "./pages/Cart";
-import LoginSuccess from "./pages/LoginSuccess"; // <-- 1. IMPORT THE NEW COMPONENT
+import LoginSuccess from "./pages/LoginSuccess";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,11 +43,16 @@ function App() {
         <Route path="/dishes" element={<Dish user={user} />} />
         <Route path="/payment" element={<Payment user={user} />} />
         <Route path="/trackorder" element={<TrackOrder user={user} />} />
-        <Route path="/chefs/:dish" element={<ChefsPage user={user} />} />
+        
+        {/* This route handles a page for a SINGLE chef (e.g., /chef/6) */}
+        <Route path="/chef/:id" element={<ChefsPage user={user} />} />
+
+        {/* === THIS IS THE FIX === */}
+        {/* This new route handles the page for a LIST of chefs (e.g., /chefs) */}
+        <Route path="/chefs" element={<ChefsPage user={user} />} />
 
         <Route path="/cart" element={<Cart user={user} />} />
         
-        {/* --- 2. ADD THE NEW ROUTE FOR THE SUCCESS PAGE --- */}
         <Route path="/login-success" element={<LoginSuccess />} />
 
       </Routes>

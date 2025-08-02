@@ -1,14 +1,15 @@
-import '../styles/login.css';
+// The path that finally worked was '../styles/login.css'
+// This assumes Login.jsx is in 'src/pages/' and your CSS is in 'src/styles/'
+import '../styles/login.css'; 
 import { useState } from 'react'; 
 import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false); 
-  // NEW: State to manage which form is shown: 'email' or 'otp'
   const [loginMode, setLoginMode] = useState('email');
   const navigate = useNavigate();
 
-  // Your existing server logic for email login is preserved
+  // This is your original function for handling email/password login
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -39,8 +40,7 @@ function Login() {
     }
   };
 
-<<<<<<< HEAD
-  // NEW: Handler for the OTP form. You will add your server logic here later.
+  // This is the new function for handling OTP requests
   const handleOtpLogin = async (e) => {
     e.preventDefault();
     const phone = e.target.phone.value;
@@ -48,22 +48,8 @@ function Login() {
         return alert("Please enter a phone number.");
     }
     alert(`OTP request sent to ${phone}. (Backend logic needed)`);
-    // TODO: Add your fetch call to your backend OTP endpoint here
+    // You will need to add your server logic for sending the OTP here
   };
-=======
-if (response.ok) {
-  alert("Login successful!");
-  window.location.href = "/dishes"; // <--- updated here
-} else {
-  alert(data.message || "Login failed");
-}
-
-} catch (error) {
-console.error("Login error:", error);
-alert("An error occurred. Please try again.");
-}
-};
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
 
   return (
     <div className="login-page" style={{ backgroundColor: '#FFFAF7', minHeight: '100vh' }}>
@@ -77,7 +63,7 @@ alert("An error occurred. Please try again.");
 
           <h2 className="welcome-title">Welcome Back</h2>
 
-          {/* --- MODIFIED: Form rendering is now conditional --- */}
+          {/* This part conditionally renders the correct form based on the 'loginMode' state */}
           {loginMode === 'email' ? (
             <form id="login-form" className="login-form" onSubmit={handleLogin}>
               <div className="input-group">
@@ -113,7 +99,7 @@ alert("An error occurred. Please try again.");
             <span>or continue with</span>
           </div>
 
-          {/* --- MODIFIED: Buttons are now outside the form and updated --- */}
+          {/* This is the updated social buttons section */}
           <div className="social-buttons">
             <button
               type="button"
@@ -123,13 +109,11 @@ alert("An error occurred. Please try again.");
               <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google
             </button>
             
-            {/* NEW: Button to toggle between login modes */}
             <button 
               type="button" 
               className="social-btn" 
               onClick={() => setLoginMode(prevMode => prevMode === 'email' ? 'otp' : 'email')}
             >
-              {/* Using emojis as simple icons */}
               {loginMode === 'email' ? '📞' : '✉️'}
               {loginMode === 'email' ? ' Login with Number' : ' Login with Email'}
             </button>

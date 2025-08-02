@@ -6,7 +6,6 @@ const OrderSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  // We store the details of the booked chefs directly in the order
   items: [
     {
       name: { type: String, required: true },
@@ -23,7 +22,7 @@ const OrderSchema = new mongoose.Schema({
   paymentMethod: {
     type: String,
     required: true,
-    enum: ['PhonePe', 'Google Pay (GPay)', 'Cash on Delivery'], // Allowed values
+    enum: ['PhonePe', 'Google Pay (GPay)', 'Cash on Delivery'],
   },
   status: {
     type: String,

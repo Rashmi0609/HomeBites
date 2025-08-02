@@ -1,144 +1,81 @@
-// const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const User = require('../models/User');
-
-// passport.use(new GoogleStrategy({
-//   clientID: process.env.GOOGLE_CLIENT_ID,
-//   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//   callbackURL: '/auth/google/callback',
-// },
-// async (accessToken, refreshToken, profile, done) => {
-//   try {
-//     const existingUser = await User.findOne({ googleId: profile.id });
-
-//     if (existingUser) {
-//       return done(null, existingUser); // ✅ User exists
-//     }
-
-//     // 🆕 Create and save new user
-//     const newUser = await new User({
-//       googleId: profile.id,
-//       name: profile.displayName,
-//       email: profile.emails[0].value,
-//     }).save();
-
-//     return done(null, newUser);
-//   } catch (err) {
-//     return done(err, null);
-//   }
-// }));
-
-// // Save user to session
-// passport.serializeUser((user, done) => {
-//   done(null, user.id); // save Mongo _id
-// });
-
-// // Retrieve user from session
-// passport.deserializeUser(async (id, done) => {
-//   try {
-//     const user = await User.findById(id);
-//     done(null, user);
-//   } catch (err) {
-//     done(err, null);
-//   }
-// });
-
-
-//
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
-<<<<<<< HEAD
-// Strategy for Email & Password Login
+// --- Strategy for Email & Password Login ---
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
     try {
-        const user = await User.findOne({ email: email.toLowerCase() });
-        if (!user) return done(null, false, { message: 'No user with that email found.' });
-        if (!user.password) return done(null, false, { message: 'Please use the "Login with Google" button.' });
+        // FIX 1: You must use .select('+password') because the User model hides it by default.
+        const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
         
+        // If no user is found, or if they don't have a password set (i.e., Google-only account)
+        if (!user || !user.password) {
+            // FIX 2: Use a generic error message for security. Don't reveal if the email exists.
+            return done(null, false, { message: 'Incorrect email or password.' });
+        }
+        
+        // Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return done(null, false, { message: 'Password incorrect.' });
+        if (!isMatch) {
+            return done(null, false, { message: 'Incorrect email or password.' });
+        }
         
+        // If passwords match, return the user
         return done(null, user);
+
     } catch (err) {
         return done(err);
     }
 }));
 
-// Strategy for Google Login
+
+// --- Strategy for Google Login ---
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback',
+    callbackURL: '/api/auth/google/callback', // FIX 3: Ensure this matches your server route
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        const existingUser = await User.findOne({ googleId: profile.id });
-        if (existingUser) return done(null, existingUser);
-=======
-// Google Strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:5000/auth/google/callback', // full URL
-    passReqToCallback: true
-  },
-  async (req, accessToken, refreshToken, profile, done) => {
-    try {
-      const existingUser = await User.findOne({ googleId: profile.id });
+        // Check if the user already exists with this Google ID
+        let user = await User.findOne({ googleId: profile.id });
+        if (user) {
+            return done(null, user);
+        }
 
-      if (existingUser) {
-        return done(null, existingUser); // ✅ User already exists
-      }
+        // FIX 4: Check if a user exists with that email but hasn't linked Google yet
+        user = await User.findOne({ email: profile.emails[0].value });
+        if (user) {
+            // This is an existing local user. Link their Google account.
+            user.googleId = profile.id;
+            await user.save();
+            return done(null, user);
+        }
 
-      // 🆕 Create new user with minimal fields
-      const newUser = new User({
-        googleId: profile.id,
-        firstName: profile.name?.givenName || '',
-        lastName: profile.name?.familyName || '',
-        email: profile.emails?.[0].value,
-        password: '', // Google login doesn’t need password
-        address: '',
-        contactNumber: ''
-      });
-
-      await newUser.save();
-      return done(null, newUser);
-    } catch (err) {
-      console.error("Google auth error:", err);
-      return done(err, null);
-    }
-  }
-));
-
-// Save user to session
-passport.serializeUser((user, done) => {
-  done(null, user._id); // Store MongoDB _id
-});
->>>>>>> 4f6e398048a64578f4cade007a8ee07a870e8227
-
-        // Create a new user from Google profile
+        // If no user exists at all, create a brand new one
         const newUser = new User({
             googleId: profile.id,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             email: profile.emails[0].value,
-            // Provide placeholder data for fields Google doesn't give us
-            phone: '0000000000', 
-            address: 'Not provided'
         });
 
         await newUser.save();
         return done(null, newUser);
+
     } catch (err) {
         return done(err, null);
     }
 }));
 
-// Session Management
-passport.serializeUser((user, done) => done(null, user.id));
+
+// --- Session Management ---
+// This part is correct and does not need changes.
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);

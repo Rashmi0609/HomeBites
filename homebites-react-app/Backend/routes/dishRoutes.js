@@ -1,11 +1,9 @@
 const router = require('express').Router();
-const Dish = require('../models/Dish'); // Import the Dish model
+const Dish = require('../models/Dish');
 
-// === GET ALL DISHES ===
-// This endpoint will be reached at GET /api/dishes/
+// GET ALL DISHES
 router.get('/', async (req, res) => {
   try {
-    // Find all documents in the Dish collection
     const dishes = await Dish.find({});
     res.status(200).json(dishes);
   } catch (error) {

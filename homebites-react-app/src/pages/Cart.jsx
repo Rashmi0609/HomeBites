@@ -52,8 +52,8 @@ const Cart = () => {
       {/* --- STYLE FIX FOR THE IMAGE --- */}
       <style>{`
         .cart-item-card {
-          display: flex; /* Aligns image and details side-by-side */
-          align-items: center; /* Vertically centers the content */
+          display: flex;
+          align-items: center;
           gap: 20px;
           background-color: #fff;
           padding: 15px;

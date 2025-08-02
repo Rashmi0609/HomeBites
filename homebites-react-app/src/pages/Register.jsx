@@ -10,7 +10,8 @@ function Register() {
     email: '',
     password: '',
     address: '',
-    phone: '',
+    // FIX: Changed 'phone' to 'contactNumber'
+    contactNumber: '',
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ function Register() {
         email: formData.email,
         password: formData.password,
         address: formData.address,
-        phone: formData.phone
+        // FIX: Changed payload key to 'contactNumber'
+        contactNumber: formData.contactNumber
       });
 
       alert('Registration successful! Please login to continue.');
@@ -76,7 +78,8 @@ function Register() {
               <label>Address</label>
             </div>
             <div className="input-group">
-              <input type="tel" name="phone" required placeholder=" " value={formData.phone} onChange={handleChange} />
+              {/* FIX: Updated name and value for the contact number input */}
+              <input type="tel" name="contactNumber" required placeholder=" " value={formData.contactNumber} onChange={handleChange} />
               <label>Contact Number</label>
             </div>
             <button type="submit" className="signup-btn" disabled={loading}>
